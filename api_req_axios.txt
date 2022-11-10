@@ -1,0 +1,34 @@
+import React from 'react'
+import axios from 'axios';
+
+
+export default function App() {
+  const test=()=>{
+    let img=document.querySelector('#img').files[0];
+    let doc=document.querySelector('#doc').files[0];
+    var data = new FormData();
+    data.append('name','testuser');
+    data.append('dept','cs');
+    data.append('img',img);
+    data.append('doc',doc);
+    axios({
+      method: "post",
+      url: "http://localhost:9000/test",
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (response) {
+        console.log(response);
+      });
+  }
+  return (
+    <div>
+      <input type="file" id="img"></input>
+      <input type="file" id="doc"></input>
+      <button onClick={test}>Click</button>
+    </div>
+  )
+}

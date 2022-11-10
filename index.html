@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id="example">
+    <button onclick="test()">Click</button>
+    <script>
+        function test() {
+            let fdata=document.querySelector('#example').files[0];
+            var data = new FormData();
+            data.append('name','testuser');
+            data.append('dept','cs');
+            data.append('img',fdata);
+          
+
+                axios({
+  method: "post",
+  url: "http://localhost:9000/test",
+  data: data,
+  headers: { "Content-Type": "multipart/form-data" },
+})
+  .then(function (response) {
+    //handle success
+    console.log(response);
+  })
+  .catch(function (response) {
+    //handle error
+    console.log(response);
+  });
+
+
+
+
+
+
+        }
+    </script>
+</body>
+
+</html>
