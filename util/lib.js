@@ -73,9 +73,19 @@ const pdfUpload=(pdf)=>{
 }
 
 
+const dateToMysqlDate=(date)=>{
+
+}
 
 
-module.exports = { imageValidation ,imageUpload,pdfValidation,pdfUpload};
+const mysqlDateToDate=(date)=>{
+
+}
+
+
+
+
+module.exports = { imageValidation ,imageUpload,pdfValidation,pdfUpload,dateToMysqlDate,mysqlDateToDate};
 
 
 
