@@ -1,4 +1,5 @@
 const { add, update, find, findall, remove } = require("./salary.services");
+const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
 
 
@@ -6,16 +7,18 @@ const { add, update, find, findall, remove } = require("./salary.services");
 
 const Add_ = (request, response) => {
 
-  //initilized the object here from request body:
+  let {basic, hra, conveyance, medical, special, pf, insurance, tax}=request.body;
 
-  let data = request.body;
-  add(data,(err,result)=>{
-  if (err) 
-  response.status(500).json({ message: "Internal Server Error" });
-  else
-  response.status(200).json(result);
- });
- 
+  if(!(basic)||!(hra)||!(conveyance)||!(medical)||!(special)||!(pf)||!(insurance)||!(tax))
+  response.status(404).json({ message: invalidrequest });
+  else{
+  add(request.body,(err,result)=>{
+    if (err) 
+    response.status(500).json({ message: servererror });
+    else
+    response.status(200).json(result);
+   });
+} 
 };
 
 
@@ -23,23 +26,50 @@ const Add_ = (request, response) => {
 
 const Update_ = (request, response) => {
   if (isNaN(request.params.id))
-    response.status(400).json({ message: "Invalid Request" });
+    response.status(400).json({ message: invalidrequest });
   else {
     find(request.params.id, (err, result) => {
       if (err) 
-      response.status(500).json({ message: "Internal Server Error " });
-      else if (result.length == 0)
-        response.status(404).json({ message: "Invalid request" });
+      response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: invalidrequest });
       else {
-        let data=request.body;
-        data.id=request.params.id;
-        update(data,(err, result) => {
+        let newData=request.body;
+        let oldData=result;
+
+        if(newData.basic!=undefined && newData.basic!=oldData.basic)
+        oldData={...oldData,basic:newData.basic};
+
+        if(newData.hra!=undefined && newData.hra!=oldData.hra)
+        oldData={...oldData,hra:newData.hra};
+
+
+        if(newData.conveyance!=undefined && newData.conveyance!=oldData.conveyance)
+        oldData={...oldData,conveyance:newData.conveyance};
+
+
+        if(newData.medical!=undefined && newData.medical!=oldData.medical)
+        oldData={...oldData,medical:newData.medical};
+
+        if(newData.special!=undefined && newData.special!=oldData.special)
+        oldData={...oldData,special:newData.special};
+
+        if(newData.pf!=undefined && newData.pf!=oldData.pf)
+        oldData={...oldData,pf:newData.pf};
+
+        if(newData.insurance!=undefined && newData.insurance!=oldData.insurance)
+        oldData={...oldData,insurance:newData.insurance};
+
+        if(newData.tax!=undefined && newData.tax!=oldData.tax)
+        oldData={...oldData,tax:newData.tax};
+
+        update(oldData,(err, result) => {
           if (err)
-            response.status(500).json({ message: "Internal Server Error" });
+            response.status(500).json({ message: servererror });
           else if (result.affectedRows == 0)
-            response.status(406).json({ message: "No Data Found" });
+            response.status(406).json({ message: datanotfound });
           else
-            response.status(200).json({ message: "Data Updated Successfully" });
+            response.status(200).json({ message: updatemessge });
         });
       }
     });
@@ -56,12 +86,12 @@ const Update_ = (request, response) => {
 
 const Find_ = (request, response) => {
   let _id = request.params.id;
-  if (isNaN(_id)) response.status(400).json({ message: "Invalid Request" });
+  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
   else {
     find(_id, (err, result) => {
-      if (err) response.status(500).json({ message: "Internal Server Error" });
-      else if (result.length == 0)
-        response.status(404).json({ message: "No data found" });
+      if (err) response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: datanotfound });
       else response.status(200).json(result);
     });
   }
@@ -73,9 +103,9 @@ const Find_ = (request, response) => {
 
 const FindAll_ = (request, response) => {
   findall(null, (err, result) => {
-    if (err) response.status(500).json({ message: "Internal Server Error" });
+    if (err) response.status(500).json({ message: servererror });
     else if (result.length == 0)
-      response.status(404).json({ message: "No data found" });
+      response.status(404).json({ message: datanotfound});
     else response.status(200).json(result);
   });
 };
@@ -85,13 +115,13 @@ const FindAll_ = (request, response) => {
 
 const Remove_ = (request, response) => {
   let _id = request.params.id;
-  if (isNaN(_id)) response.status(400).json({ message: "Invalid Request" });
+  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
   else {
     remove(_id, (err, result) => {
-      if (err) {response.status(500).json({ message: "Internal Server Error" });}
+      if (err) {response.status(500).json({ message: servererror });}
       else if (result.affectedRows == 0)
-        response.status(406).json({ message: "No Data Found" });
-      else response.status(200).json({ message: "Data Deleted Successfully" });
+        response.status(406).json({ message: datanotfound });
+      else response.status(200).json({ message: updatemessge });
     });
   }
 };

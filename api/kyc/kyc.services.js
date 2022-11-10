@@ -8,7 +8,7 @@ let addquery='INSERT INTO kyc(adhar_no,pan_no,address,adhar_verified,pan_verifie
 let updateQuery='UPDATE kyc SET adhar_no=?,pan_no=?,address=?,adhar_verified=?,pan_verified=?,user_id=?,user_type=? WHERE id=?';
 let findQuery='SELECT * FROM kyc WHERE id=?';
 let findAllQuery='SELECT * FROM kyc';
-let deleteQuery='DELETE * FROM kyc WHERE id=?';
+let deleteQuery='DELETE FROM kyc WHERE id=?';
 
 
 // Add Data in the Database....
@@ -46,7 +46,6 @@ const update = (data, callBack) => {
 // Find Data from the Database....
 
 const find = (id, callBack) => {
-    console.log(id)
     dbcon.query(findQuery, [id], (err, result, fields) => {
         if(err)
         return callBack(err);

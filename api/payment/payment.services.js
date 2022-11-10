@@ -8,7 +8,7 @@ let addquery='INSERT INTO payment(payment_mode,transaction_id,ammount,status,to_
 let updateQuery='UPDATE payment SET payment_mode=?,transaction_id=?,ammount=?,status=?,to_account=?,from_account=?,remarks=? WHERE id=?';
 let findQuery='SELECT * FROM payment WHERE id=?';
 let findAllQuery='SELECT * FROM payment';
-let deleteQuery='DELETE * FROM payment WHERE id=?';
+let deleteQuery='DELETE FROM payment WHERE id=?';
 
 
 // Add Data in the Database....
@@ -46,7 +46,6 @@ const update = (data, callBack) => {
 // Find Data from the Database....
 
 const find = (id, callBack) => {
-    console.log(id)
     dbcon.query(findQuery, [id], (err, result, fields) => {
         if(err)
         return callBack(err);

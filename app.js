@@ -19,6 +19,8 @@ const DesignationRouter=require('./api/designation/designation.route');
 const EmpInfoRouter=require('./api/employee_info/employee_info.route');
 const InvesmentRouter=require('./api/investment/investment.route');
 const PaymentRouter=require('./api/payment/payment.route');
+const KycRouter=require('./api/kyc/kyc.route');
+const SalaryRouter=require('./api/salary/salary.route');
 
 
 
@@ -58,6 +60,8 @@ app.use("/api/designation",DesignationRouter);
 app.use("/api/emp_info",EmpInfoRouter);
 app.use("/api/invesment",InvesmentRouter);
 app.use("/api/payment",PaymentRouter);
+app.use("/api/kyc",KycRouter);
+app.use("/api/salary",SalaryRouter);
 
 
 
