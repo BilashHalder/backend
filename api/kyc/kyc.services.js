@@ -9,6 +9,7 @@ let updateQuery='UPDATE kyc SET adhar_no=?,pan_no=?,address=?,adhar_verified=?,p
 let findQuery='SELECT * FROM kyc WHERE id=?';
 let findAllQuery='SELECT * FROM kyc';
 let deleteQuery='DELETE FROM kyc WHERE id=?';
+let findKycQuery='SELECT * FROM kyc WHERE user_id=? AND user_type=?'
 
 
 // Add Data in the Database....
@@ -75,5 +76,13 @@ const remove = (id, callBack) => {
 }
 
 
+const findKyc = (data, callBack) => {
+    dbcon.query(findKycQuery, [data.user_id,data.user_type], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result[0]);
+    });
+}
 
-module.exports={add,update,find,findall,remove};
+
+module.exports={add,update,find,findall,remove,findKyc};

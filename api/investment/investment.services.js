@@ -34,7 +34,11 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {user_id,user_type,ammount,roi,nominee_id,account_no,payment_id, agreement_file,status,withdrw_req_time,is_send,id}=data;
+    const {user_id,user_type,ammount,roi,nominee_id,account_no,payment_id,status,withdrw_req_time,is_send,id}=data;
+
+
+
+    
     dbcon.query(updateQuery,[user_id,user_type,ammount,roi,nominee_id,account_no,payment_id,agreement_file,status,withdrw_req_time,is_send,id], (err, result, fields) => {
         if(err)
         return callBack(err);

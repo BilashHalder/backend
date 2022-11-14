@@ -15,17 +15,17 @@ if(!(user_id)||!(user_type)||!(ammount)||!(roi)||!(nominee_id)||!(account_no)||!
   response.status(404).json({ message: invalidrequest });
 else{
   if(user_type==1){
-    qurUpdate='UPDATE customer SET balance=455 WHERE id';
+    qurUpdate='UPDATE customer SET balance=? WHERE id=?';
     qur='SELECT * FROM customer WHERE id=?';
   }
     
     else if(user_type==2)
    {
-    qurUpdate='UPDATE associate SET balance=455 WHERE id';
+    qurUpdate='UPDATE associate SET balance=? WHERE id=?';
     qur='SELECT * FROM associate WHERE id=?'
    }
     else 
-    { qurUpdate='UPDATE associate SET balance=455 WHERE id';
+    { qurUpdate='UPDATE associate SET balance=? WHERE id=?';
       qur='SELECT * FROM employee WHERE id=?'
     }
 
@@ -36,60 +36,73 @@ else{
            response.status(400).json({ message: "Invalid Requset" });
       else if(parseFloat(result[0].balance) < parseFloat(ammount))
               response.status(400).json({ message: "Insufficient Balance" });
-      else
-       {
-        //create payment 
-        //update balance
-        //payment_mode,transaction_id,ammount,status,to_account, from_account,remark
+     else{
+      let kycQur="SELECT * FROM `kyc` WHERE user_id=? AND user_type=?";
+        dbcon.query(kycQur,[user_id,user_type],(err,kyc,fields)=>{
+          if(err)
+          response.status(500).json({ message: "Internal Server Error " });
+          else if(kyc.length==0)
+          response.status(400).json({ message: "Please Add KYC Information" });
+          else{
+            let kycinfo=kyc[0];
+            if(kycinfo.pan_verified!=1 || kycinfo.adhar_verified!=1 )
+            response.status(400).json({ message: "Kyc Not Verified"});
+            else
+            {
+     
+            
+           //  create a payement
+     
+           let paymentQur="INSERT INTO payment(payment_mode,transaction_id,ammount,status,to_account, from_account,remarks) VALUES (?,?,?,?,?,?,?)"; 
+           dbcon.query(paymentQur,[3,'invesment',parseFloat(ammount),1,'creazione',user_type+'_'+user_id,'invesment'],async (err, pay, fields) => {
+             if(err)
+            {
+             console.log(err);
+              response.status(500).json({ message: "Internal Server Error " });
+           }
+             else 
+             {
+               let userData=result[0];
+               let balance=userData.balance;
+               let uid=userData.id;
+               let updatebalance=parseFloat(balance)-parseFloat(ammount);
+               dbcon.query(qurUpdate,[updatebalance,uid],(err, temp, fields) => {
+                 if(err)
+                 response.status(500).json({ message: "Internal Server Error " });
+                 else 
+                 {
+                   
+                   let invobj={
+                     user_id,user_type,ammount,roi,nominee_id,account_no,payment_id:pay.insertId,agreement_file:null,status:1,withdrw_req_time:null,is_send
+                   }
+                   add(invobj, (err, result) => {
+                     if (err)
+                       response.status(500).json({ message: 'Please Contact To Admin' });
+                     else
+                       response.status(201).json({ message: "Invesment Added", data: result });
+                   });
+     
+                 }
+               });
+             }
+           });
+            }
+            
+
+          }
 
 
-        let temp={user_id,user_type,ammount,roi,nominee_id,account_no,is_send,payment_id:Math.random()*1000000000,agreement_file:null,status:1,withdrw_req_time:null}
-       
-       
-        add(temp, (err, result) => {
-          if (err)
-            response.status(500).json({ message: servererror });
-          else
-            response.status(201).json({ message: "Invesment Added", data: result });
         });
 
 
 
-       }
+
+     }
     });
-}
-
-
-//check balance 
-//deduct balance
-//add in invesment
-  
-
-
-
-
- 
-
-
- 
-
-
-
-
-
-
-
-
-
- 
+} 
 };
 
-
-
-
 const Update_ = (request, response) => {
-  
-
   if (isNaN(request.params.id))
     response.status(400).json({ message: "Invalid Request" });
   else {

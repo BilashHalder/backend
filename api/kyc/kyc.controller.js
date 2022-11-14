@@ -1,30 +1,37 @@
-const { add, update, find, findall, remove } = require("./kyc.services");
+const { add, update, find, findall, remove ,findKyc} = require("./kyc.services");
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
 
 
 
 const Add_ = (request, response) => {
- //adhar_no,pan_no,address,adhar_verified,pan_verified,user_id,user_type
 
   let {adhar_no,pan_no,address,user_id,user_type}=request.body;
-
 
   if(!(adhar_no)||!(pan_no)||!(address)||!(user_id)||!(user_type))
   response.status(404).json({ message: invalidrequest });
 else{
-   /**  
+
+  findKyc({user_id,user_type},(err,info,fields)=>{
+    if (err) 
+    response.status(500).json({ message: servererror });
+    else if(info){
+      response.status(400).json({ message: 'Kyc Already Added' });
+    }
+    else{
+ /**  
    * Call Adhar & Pan api and set the verfication fields
    * **/
 
-let data={adhar_no,pan_no,address,user_id,user_type,adhar_verified:1,pan_verified:1}
-
-add(data,(err,result)=>{
-  if (err) 
-  response.status(500).json({ message: servererror });
-  else
-  response.status(200).json(result);
- });
+  let data={adhar_no,pan_no,address,user_id,user_type,adhar_verified:1,pan_verified:1}
+  add(data,(err,result)=>{
+    if (err) 
+    response.status(500).json({ message: servererror });
+    else
+    response.status(200).json(result);
+   });
+    }
+  });
 }
 };
 
