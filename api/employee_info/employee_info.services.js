@@ -9,6 +9,7 @@ let updateQuery='UPDATE employee_info SET employee_id=?,designation_id=?,salary_
 let findQuery='SELECT * FROM employee_info WHERE id=?';
 let findAllQuery='SELECT * FROM employee_info';
 let deleteQuery='DELETE FROM employee_info WHERE id=?';
+let empQuery="SELECT * FROM employee_info WHERE employee_id=?"
 
 
 // Add Data in the Database....
@@ -75,6 +76,12 @@ const remove = (id, callBack) => {
     });
 }
 
+const finduser = (id, callBack) => {
+    dbcon.query(empQuery, [id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result[0]);
+    });
+}
 
-
-module.exports={add,update,find,findall,remove};
+module.exports={add,update,find,findall,remove,finduser};

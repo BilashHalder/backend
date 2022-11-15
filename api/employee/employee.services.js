@@ -16,8 +16,8 @@ let findbyemailQuery="SELECT * FROM employee WHERE email=? OR phone=?"
 
 
 const add = (data, callBack) => {
-    const {name,gender,email,phone,balance,pass,image,status}=data;
-    dbcon.query(addquery, [name,gender,email,phone,balance,pass,image,status], (err, result, fields) => {
+    const {name,gender,email,phone,balance,pass,img,status}=data;
+    dbcon.query(addquery, [name,gender,email,phone,balance,pass,img,status], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
