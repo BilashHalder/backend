@@ -7,7 +7,10 @@ const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg}=require('
 const Add_ = (request, response) => {
   let { title } = request.body;
   add(title, (err, result) => {
-    if (err) response.status(500).json({ message: servererror });
+    if (err) {
+      response.status(500).json({ message: servererror });
+
+    }
     else response.status(200).json(result);
   });
 };

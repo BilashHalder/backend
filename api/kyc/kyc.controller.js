@@ -1,9 +1,6 @@
 const { add, update, find, findall, remove ,findKyc} = require("./kyc.services");
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
-
-
-
 const Add_ = (request, response) => {
 
   let {adhar_no,pan_no,address,user_id,user_type}=request.body;
@@ -19,12 +16,8 @@ else{
       response.status(400).json({ message: 'Kyc Already Added' });
     }
     else{
- /**  
-   * Call Adhar & Pan api and set the verfication fields
-   * **/
-
-  let data={adhar_no,pan_no,address,user_id,user_type,adhar_verified:1,pan_verified:1}
-  add(data,(err,result)=>{
+  let temp={adhar_no,pan_no,address,user_id,user_type,adhar_verified:1,pan_verified:1}
+  add(temp,(err,result)=>{
     if (err) 
     response.status(500).json({ message: servererror });
     else

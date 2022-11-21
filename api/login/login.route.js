@@ -1,11 +1,13 @@
 const router=require("express").Router();
-const {Find_,FindAll_,Add_,Update_,Remove_}=require('./employee_info.controller');
 
-router.get("/:id",Find_);
-router.get("/",FindAll_);
-router.post("/",Add_);
-router.put("/:id",Update_);
-router.delete("/:id",Remove_);
+const {Admin,Customer,Associate,Employee}=require('./login.controller');
+
+router.post("/admin",Admin);
+router.post("/customer",Customer);
+router.post("/associate",Associate);
+router.post("/employee",Employee);
+
+
 
  /*To handle all invalid request */  
  router.all("*",(request,response)=>{

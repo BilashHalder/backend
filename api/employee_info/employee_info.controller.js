@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove,finduser } = require("./employee_info.services");
+const { add, update, find, findall, remove } = require("./employee_info.services");
 const { pdfValidation, pdfUpload } = require('../../util/lib');
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
@@ -145,21 +145,4 @@ const Remove_ = (request, response) => {
     });
   }
 };
-
-
-
-const FindUser_ = (request, response) => {
-  let _id = request.params.id;
-  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
-  else {
-    finduser(_id, (err, result) => {
-      if (err) response.status(500).json({ message: servererror });
-      else if (!result)
-        response.status(404).json({ message: datanotfound });
-      else response.status(200).json(result);
-    });
-  }
-};
-
-
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_,FindUser_ };
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ };

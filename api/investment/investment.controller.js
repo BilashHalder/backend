@@ -9,6 +9,7 @@ const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror
 
 
 const Add_ = async(request, response) => {
+  // console.log(request.body)
   const {user_id,user_type,ammount,roi,nominee_id,account_no,is_send}=request.body;
 
 if(!(user_id)||!(user_type)||!(ammount)||!(roi)||!(nominee_id)||!(account_no)||!(is_send))
@@ -35,7 +36,11 @@ else{
       else if(!result)
            response.status(400).json({ message: "Invalid Requset" });
       else if(parseFloat(result[0].balance) < parseFloat(ammount))
-              response.status(400).json({ message: "Insufficient Balance" });
+              {
+                // console.log(ammount)
+                response.status(400).json({ message: "Insufficient Balance" });
+
+              }
      else{
       let kycQur="SELECT * FROM `kyc` WHERE user_id=? AND user_type=?";
         dbcon.query(kycQur,[user_id,user_type],(err,kyc,fields)=>{

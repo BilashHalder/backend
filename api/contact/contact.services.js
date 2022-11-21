@@ -3,22 +3,20 @@ const dbcon = require("../../config/dbconfig");
 /***********************************
  * all database query
  ***********************************/
-//name, gender,email,phone,balance,pass,image,status
-let addquery='INSERT INTO employee(name, gender,email,phone,balance,pass,image,status) VALUES (?,?,?,?,?,?,?,?)';
-let updateQuery='UPDATE employee SET name=?,gender=?,email=?,phone=?,balance=?,pass=?,image=?,status=? WHERE id=?';
-let findQuery='SELECT * FROM employee WHERE id=?';
-let findAllQuery='SELECT * FROM employee';
-let deleteQuery='DELETE FROM employee WHERE id=?';
-let findbyemailQuery="SELECT * FROM employee WHERE email=? OR phone=?"
+
+let addquery='INSERT INTO contact_us(name,phone_no,subject,message) VALUES (?,?,?,?)';
+let updateQuery='UPDATE contact_us SET name=?,phone_no=?,subject=?,message=?,status=?,remarks=? WHERE id=?';
+let findQuery='SELECT * FROM contact_us WHERE id=?';
+let findAllQuery='SELECT * FROM contact_us';
+let deleteQuery='DELETE FROM contact_us WHERE id=?';
 
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    
-    const {name,gender,email,phone,balance,pass,img,status}=data;
-    dbcon.query(addquery, [name,gender,email,phone,balance,pass,img,status], (err, result, fields) => {
+    const {name,phone_no,subject,message}=data;
+    dbcon.query(addquery, [name,phone_no,subject,message], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -36,8 +34,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {name,gender,email,phone,balance,pass,image,status,id}=data;
-    dbcon.query(updateQuery, [name,gender,email,phone,balance,pass,image,status,id], (err, result, fields) => {
+    const {name,phone_no,subject,message,status,remarks,id}=data;
+    dbcon.query(updateQuery, [name,phone_no,subject,message,status,remarks,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
@@ -77,15 +75,6 @@ const remove = (id, callBack) => {
 }
 
 
-// remove Data from the Database....
 
-const isRegister=(data, callBack) => {
-    let {email,phone}=data;
-        dbcon.query(findbyemailQuery,[email,phone], (err, result, fields) => {
-        if(err)
-        return callBack(err);
-        return callBack(null,result);
-    });
-}
 
-module.exports={add,update,find,findall,remove,isRegister};
+module.exports={add,update,find,findall,remove};

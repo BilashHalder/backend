@@ -4,7 +4,6 @@ const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const Add_ = async (request, response) => {
-  console.log(request.files)
   let { name, gender, email, phone, referred_by } = request.body;
   if (name == undefined || gender == undefined || email == undefined || phone == undefined || referred_by == undefined)
     response.status(404).json({ message: invalidrequest });

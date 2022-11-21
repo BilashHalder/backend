@@ -16,8 +16,6 @@ const Add_ = (request, response) => {
       else
       response.status(200).json(result);
      });
-
-    response.json(data)
   }
 };
 

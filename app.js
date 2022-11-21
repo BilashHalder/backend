@@ -7,8 +7,6 @@ const fs=require('fs');
 
 
 
-
-
 const AccountRouter=require('./api/account/account.router');
 const CustomerRouter=require('./api/customer/customer.route');
 const AssociateRouter=require('./api/associate/associate.route');
@@ -21,6 +19,10 @@ const InvesmentRouter=require('./api/investment/investment.route');
 const PaymentRouter=require('./api/payment/payment.route');
 const KycRouter=require('./api/kyc/kyc.route');
 const SalaryRouter=require('./api/salary/salary.route');
+const LoginRouter=require('./api/login/login.route');
+const ContactRouter=require('./api/contact/contact.route');
+
+
 
 
 
@@ -41,15 +43,31 @@ app.use(fileUpload());
     if(fs.existsSync(`${__dirname}/uploads/images/${id}`))
      res.sendFile(`${__dirname}/uploads/images/${id}`);
      else
-     res.send('invalid');
+     res.json({message:"Invalid Resouse Request"});
+});
+
+
+app.get('/uploads/documents/:id',(req, res)=>{
+    id=req.params.id;
+    if(fs.existsSync(`${__dirname}/uploads/documents/${id}`))
+     res.sendFile(`${__dirname}/uploads/documents/${id}`);
+     else
+     res.json({message:"Invalid Resouse Request"});
+});
+
+
+app.get('/uploads/others/:id',(req, res)=>{
+    id=req.params.id;
+    if(fs.existsSync(`${__dirname}/uploads/others/${id}`))
+     res.sendFile(`${__dirname}/uploads/others/${id}`);
+     else
+     res.json({message:"Invalid Resouse Request"});
 });
 
 
 
-
-
-
 /***************Api Routings*********************/
+
 app.use("/api/account",AccountRouter);
 app.use("/api/customer",CustomerRouter);
 app.use("/api/associate",AssociateRouter);
@@ -62,11 +80,8 @@ app.use("/api/invesment",InvesmentRouter);
 app.use("/api/payment",PaymentRouter);
 app.use("/api/kyc",KycRouter);
 app.use("/api/salary",SalaryRouter);
-
-
-
-
-
+app.use("/api/login",LoginRouter);
+app.use("/api/contact",ContactRouter);
 
 
 
@@ -77,15 +92,7 @@ app.get("/", (request, response) => {
 });
 
 
-app.post("/test", (request, response) => {
-
-    console.log(request.body);
-    console.log(request.files);
-        // console.log(request.query.id)
-        // console.log(request.params.id)
-
-
-
+app.get("/status", (request, response) => {
         response.status(200).json({
         message: "Connection Established"
     });
@@ -109,6 +116,4 @@ app.all("*", (request, response) => {
 app.listen(9000,()=>{
     console.log(`Api Server Running on Port No : 9000`);
 });
-
-
 

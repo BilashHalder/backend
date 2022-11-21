@@ -32,6 +32,7 @@ const Add_ = async (request, response) => {
           else if (result.length)
             response.status(400).json({ message: "Email or Phone No Already Registerd" });
           else {
+            console.log(obj)
             add(obj, (err, result) => {
               if (err)
                 response.status(500).json({ message: "Internal Server Error" });
