@@ -11,6 +11,8 @@ let findAllQuery='SELECT * FROM associate';
 let deleteQuery='DELETE FROM associate WHERE id=?';
 let findbyemailQuery="SELECT * FROM associate WHERE email=? OR phone=?"
 
+let refercustomerQuery="SELECT * FROM customer WHERE referred_by =?"
+
 
 // Add Data in the Database....
 
@@ -89,4 +91,13 @@ const isRegister=(data, callBack) => {
     });
 }
 
-module.exports={add,update,find,findall,remove,isRegister};
+
+const refHistory=(ref_key, callBack)=>{
+    dbcon.query(refercustomerQuery,[ref_key], (err, result, fields) => {
+    if(err)
+    return callBack(err);
+    return callBack(null,result);
+});
+}
+module.exports={add,update,find,findall,remove,isRegister,refHistory};
+

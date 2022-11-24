@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove, isRegister } = require("./associate.services");
+const { add, update, find, findall, remove, isRegister,refHistory } = require("./associate.services");
 const { imageValidation, imageUpload } = require('../../util/lib');
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 const bcrypt = require('bcrypt');
@@ -168,28 +168,17 @@ const Remove_ = (request, response) => {
 
 
 
-const Verify=(request, response)=>{
-  const{email_phone,pass}=request.body;
-  if(email_phone==undefined || pass==undefined)
-    response.status(400).json({ message: invalid});
-    else{
-      let obj={email:email_phone,phone:email_phone}
-      isRegister(obj, (err, result) => {
-        if (err)
-          response.status(500).json({ message: servererror});
-        else if (result.length==0)
-        response.status(400).json({ message: invalid});
-        else {
-          let passval = bcrypt.compareSync(pass,result[0].pass);
-          if(!passval)
-          response.status(400).json({ message: invalid});
-          else
-            response.status(200).json({ message: "verified",token:'token'});
-        }
-      });
-    }
+const Referaal=(request, response)=>{
+
+  refHistory(request.params.id, (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: datanotfound });
+      else response.status(200).json(result);
+    });
+
 
 }
 
 
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,Verify};
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,Referaal};
