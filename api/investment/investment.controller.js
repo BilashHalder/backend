@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove } = require("./investment.services");
+const { add, update, find, findall, remove,user } = require("./investment.services");
 const dbcon = require("../../config/dbconfig");
 const{pdfValidation,pdfUpload}=require('../../util/lib')
 
@@ -222,4 +222,27 @@ const Remove_ = (request, response) => {
     });
   }
 };
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ };
+
+
+
+
+const User_ = (request, response) => {
+const {user_id,user_type}=request.body;
+if(!user_id || !user_type)
+     response.status(400).json({ message: "Invalid Request" });
+  else {
+    user(request.body, (err, result) => {
+      if (err) {
+        console.log(err)
+        response.status(500).json({ message: "Internal Server Error" });
+      }
+      else if (!result)
+        response.status(404).json({ message: "No data found" });
+      else response.status(200).json(result);
+    });
+  }
+};
+
+
+
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,User_};

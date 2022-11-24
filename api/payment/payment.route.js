@@ -1,11 +1,12 @@
 const router=require("express").Router();
-const {Find_,FindAll_,Add_,Update_,Remove_}=require('./payment.controller');
+const {Find_,FindAll_,Add_,Update_,Remove_,Users_}=require('./payment.controller');
 
 router.get("/:id",Find_);
 router.get("/",FindAll_);
 router.post("/",Add_);
 router.put("/:id",Update_);
 router.delete("/:id",Remove_);
+router.post("/user",Users_);
 
  /*To handle all invalid request */  
  router.all("*",(request,response)=>{

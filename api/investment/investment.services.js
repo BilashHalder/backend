@@ -9,7 +9,7 @@ let updateQuery='UPDATE investment SET user_id=?,user_type=?,ammount=?,roi=?,nom
 let findQuery='SELECT * FROM investment WHERE id=?';
 let findAllQuery='SELECT * FROM investment';
 let deleteQuery='DELETE FROM investment WHERE id=?';
-
+let userQuery='SELECT * FROM investment WHERE user_id=? AND user_type = ?';
 
 // Add Data in the Database....
 
@@ -78,6 +78,15 @@ const remove = (id, callBack) => {
     });
 }
 
+// remove Data from the Database....
 
+const user = (data, callBack) => {
+    const {user_id,user_type}=data;
+    dbcon.query(userQuery,[user_id,user_type], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
 
-module.exports={add,update,find,findall,remove};
+module.exports={add,update,find,findall,remove,user};

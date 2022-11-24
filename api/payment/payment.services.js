@@ -9,6 +9,7 @@ let updateQuery='UPDATE payment SET payment_mode=?,transaction_id=?,ammount=?,st
 let findQuery='SELECT * FROM payment WHERE id=?';
 let findAllQuery='SELECT * FROM payment';
 let deleteQuery='DELETE FROM payment WHERE id=?';
+let userQusery='SELECT * FROM payment WHERE to_account=? OR from_account=? ORDER BY id DESC';
 
 
 // Add Data in the Database....
@@ -74,6 +75,13 @@ const remove = (id, callBack) => {
     });
 }
 
+const user = (id, callBack) => {
+    dbcon.query(userQusery,[id,id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
 
 
-module.exports={add,update,find,findall,remove};
+module.exports={add,update,find,findall,remove,user};

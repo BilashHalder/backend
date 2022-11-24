@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove } = require("./payment.services");
+const { add, update, find, findall, remove ,user } = require("./payment.services");
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
 
@@ -118,4 +118,22 @@ const Remove_ = (request, response) => {
     });
   }
 };
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ };
+
+const Users_ = (request, response) => {
+  const {user_id,user_type} = request.body;
+
+  if (!user_id || !user_type)
+   response.status(400).json({ message: invalidrequest});
+  else {
+    let _id=`${user_id}_${user_type}`;
+    console.log(_id)
+    user(_id, (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (result.length == 0)
+        response.status(404).json({ message: datanotfound });
+      else response.status(200).json(result);
+    });
+  }
+};
+
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,Users_};
