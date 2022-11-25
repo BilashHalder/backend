@@ -92,7 +92,7 @@ const Update_ = (request, response) => {
         }
 
         if (newData.newpass != undefined && newData.pass != undefined) {
-          let passval = bcrypt.compareSync(newData.pass, oldData.pass);
+          let passval = bcrypt.compareSync(toString(newData.pass), oldData.pass);
           if (passval)
             oldData = { ...oldData, pass: bcrypt.hashSync(newData.newpass, saltRounds) }
           else
@@ -104,8 +104,6 @@ const Update_ = (request, response) => {
           response.status(400).json({ message: errmsg });
         }
         else {
-          console.log(result);
-          console.log(oldData)
           update(oldData, (err, result) => {
             if (err)
               response.status(500).json({ message: servererror });
