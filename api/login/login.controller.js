@@ -28,7 +28,7 @@ if(id==undefined || pass==undefined)
                     else{ 
                              delete result.pass;
                              var token = jwt.sign({result}, privateKey); 
-                             response.status(200).json({ message: "verified",token,id:result.id });
+                             response.status(200).json({ message: "verified",token,id:result.id,info:result });
                     }
 
                 });
@@ -58,7 +58,7 @@ const Customer=(request,response)=>{
                         else{ 
                                  delete result.pass;
                                  var token = jwt.sign({result}, privateKey); 
-                                 response.status(200).json({ message: "verified",token,id:result.id });
+                                 response.status(200).json({ message: "verified",token,id:result.id,info:result });
                         }
     
                     });
@@ -88,7 +88,7 @@ if(id==undefined || pass==undefined)
                     else{ 
                              delete result.pass;
                              var token = jwt.sign({result}, privateKey); 
-                             response.status(200).json({ message: "verified",token,id:result.id });
+                             response.status(200).json({ message: "verified",token,id:result.id,infro:result });
                     }
 
                 });
@@ -118,7 +118,7 @@ if(id==undefined || pass==undefined)
                     else{ 
                              delete result.pass;
                              var token = jwt.sign({result}, privateKey); 
-                             response.status(200).json({ message: "verified",token,id:result.id });
+                             response.status(200).json({ message: "verified",token,id:result.id,info:result });
                          }
 
                 });

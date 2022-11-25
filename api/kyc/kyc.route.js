@@ -1,11 +1,12 @@
 const router=require("express").Router();
-const {Find_,FindAll_,Add_,Update_,Remove_}=require('./kyc.controller');
+const {Find_,FindAll_,Add_,Update_,Remove_,UserKyc_}=require('./kyc.controller');
 
 router.get("/:id",Find_);
 router.get("/",FindAll_);
 router.post("/",Add_);
 router.put("/:id",Update_);
 router.delete("/:id",Remove_);
+router.post("/user",UserKyc_);
 
  /*To handle all invalid request */  
  router.all("*",(request,response)=>{

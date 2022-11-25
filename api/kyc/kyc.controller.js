@@ -128,4 +128,20 @@ const Remove_ = (request, response) => {
     });
   }
 };
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ };
+
+
+const UserKyc_=(request, response) => {
+ const {user_id,user_type}=request.body;
+ if(!user_id || !user_type)
+ response.status(400).json({ message: "Invalid Request" });
+  else {
+    findKyc(request.body, (err, result) => {
+      if (err) response.status(500).json({ message: "Internal Server Error" });
+      else if (!result)
+        response.status(404).json({ message: "No data found" });
+      else response.status(200).json(result);
+    });
+  }
+
+};
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,UserKyc_};
