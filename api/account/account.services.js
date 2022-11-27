@@ -47,7 +47,6 @@ const update = (data, callBack) => {
 // Find Data from the Database....
 
 const find = (id, callBack) => {
-    console.log(id)
     dbcon.query(findQuery, [id], (err, result, fields) => {
         if(err)
         return callBack(err);

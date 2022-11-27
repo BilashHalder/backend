@@ -32,7 +32,6 @@ const Update_ = (request, response) => {
       else {
         let newData=request.body;
         let oldData=result;
-        console.log(oldData)
         if(newData.account_no!=undefined && newData.account_no!=oldData.account_no)
         oldData={...oldData,account_no:newData.account_no};
 

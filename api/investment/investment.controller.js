@@ -9,7 +9,6 @@ const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror
 
 
 const Add_ = async(request, response) => {
-  // console.log(request.body)
   const {user_id,user_type,ammount,roi,nominee_id,account_no,is_send}=request.body;
 
 if(!(user_id)||!(user_type)||!(ammount)||!(roi)||!(nominee_id)||!(account_no)||!(is_send))
@@ -37,7 +36,6 @@ else{
            response.status(400).json({ message: "Invalid Requset" });
       else if(parseFloat(result[0].balance) < parseFloat(ammount))
               {
-                // console.log(ammount)
                 response.status(400).json({ message: "Insufficient Balance" });
 
               }
@@ -62,7 +60,6 @@ else{
            dbcon.query(paymentQur,[3,'invesment',parseFloat(ammount),1,'creazione',user_type+'_'+user_id,'invesment'],async (err, pay, fields) => {
              if(err)
             {
-             console.log(err);
               response.status(500).json({ message: "Internal Server Error " });
            }
              else 
@@ -233,7 +230,6 @@ if(!user_id || !user_type)
   else {
     user(request.body, (err, result) => {
       if (err) {
-        console.log(err)
         response.status(500).json({ message: "Internal Server Error" });
       }
       else if (!result)

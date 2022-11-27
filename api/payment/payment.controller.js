@@ -126,7 +126,6 @@ const Users_ = (request, response) => {
    response.status(400).json({ message: invalidrequest});
   else {
     let _id=`${user_id}_${user_type}`;
-    console.log(_id)
     user(_id, (err, result) => {
       if (err) response.status(500).json({ message: servererror });
       else if (result.length == 0)

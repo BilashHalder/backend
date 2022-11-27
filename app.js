@@ -5,8 +5,6 @@ const cors = require('cors');
 const app = express();
 const fs=require('fs');
 
-
-
 const AccountRouter=require('./api/account/account.router');
 const CustomerRouter=require('./api/customer/customer.route');
 const AssociateRouter=require('./api/associate/associate.route');
@@ -21,6 +19,7 @@ const KycRouter=require('./api/kyc/kyc.route');
 const SalaryRouter=require('./api/salary/salary.route');
 const LoginRouter=require('./api/login/login.route');
 const ContactRouter=require('./api/contact/contact.route');
+const DepositRouter=require('./api/deposit/deposit.route');
 
 
 
@@ -82,6 +81,7 @@ app.use("/api/kyc",KycRouter);
 app.use("/api/salary",SalaryRouter);
 app.use("/api/login",LoginRouter);
 app.use("/api/contact",ContactRouter);
+app.use("/api/deposit",DepositRouter);
 
 
 

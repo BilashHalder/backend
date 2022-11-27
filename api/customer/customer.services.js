@@ -16,9 +16,7 @@ let findbyemailQuery="SELECT * FROM customer WHERE email=? OR phone=?"
 
 
 const add = (data, callBack) => {
-    console.log(data)
     const {name,gender,email,phone,balance,referred_by,pass,img,status}=data;
-    console.log(pass)
     dbcon.query(addquery, [name,gender,email,phone,balance,referred_by,pass,img,status], (err, result, fields) => {
         if(err)
         return callBack(err);
@@ -49,7 +47,6 @@ const update = (data, callBack) => {
 // Find Data from the Database....
 
 const find = (id, callBack) => {
-    console.log(id)
     dbcon.query(findQuery, [id], (err, result, fields) => {
         if(err)
         return callBack(err);

@@ -6,7 +6,7 @@ module.exports={
         if(token)
         {
             token=token.slice(7);
-            verify(token,process.env.JWT_SECRET,(err,res)=>{
+            verify(token,privateKey,(err,res)=>{
                 if(err)
                 response.status(500).json({ message: 'Invalid Token' });
                 else
@@ -14,7 +14,7 @@ module.exports={
             });
         }
        else{
-        response.status(400).json({ message: 'unauthorized access' });
+        response.status(400).json({ message: 'Unauthorized access' });
        }
 
     }

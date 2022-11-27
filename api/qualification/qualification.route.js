@@ -1,12 +1,13 @@
 const router=require("express").Router();
 const {Find_,FindAll_,Add_,Update_,Remove_,FindEmp_}=require('./qualification.controller');
+const {verifyToken}=require('../../auth/tockenValidator');
 
-router.get("/:id",Find_);
-router.get("/",FindAll_);
-router.post("/",Add_);
-router.put("/:id",Update_);
-router.delete("/:id",Remove_);
-router.get("/all/:id",FindEmp_);
+router.get("/:id",verifyToken,Find_);
+router.get("/",verifyToken,FindAll_);
+router.post("/",verifyToken,Add_);
+router.put("/:id",verifyToken,Update_);
+router.delete("/:id",verifyToken,Remove_);
+router.get("/all/:id",verifyToken,FindEmp_);
 
  /*To handle all invalid request */  
  router.all("*",(request,response)=>{

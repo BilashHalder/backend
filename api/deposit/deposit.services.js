@@ -4,19 +4,20 @@ const dbcon = require("../../config/dbconfig");
  * all database query
  ***********************************/
 
-let addquery='INSERT INTO nominee(name,dob,user_id,user_type,status) VALUES (?,?,?,?,?)';
-let updateQuery='UPDATE nominee SET name=?,dob=?,user_id=?,user_type=?,status=? WHERE id=?';
-let findQuery='SELECT * FROM nominee WHERE id=?';
-let findAllQuery='SELECT * FROM nominee';
-let deleteQuery='DELETE FROM nominee WHERE id=?';
-let userNomineeQuery='SELECT * FROM nominee WHERE user_id=? AND user_type=?';
+let addquery='INSERT INTO deposit(mode, doc, reference, amount, user_id, user_type) VALUES (?,?,?,?,?,?)';
+let updateQuery='UPDATE deposit SET user_id=?,user_type=?,remarks=?,status=?,amount=? WHERE id=?';
+let findQuery='SELECT * FROM deposit WHERE id=?';
+let findAllQuery='SELECT * FROM deposit';
+let deleteQuery='DELETE FROM deposit WHERE id=?';
+let userQuery='SELECT * FROM deposit WHERE user_id=? AND user_type=?';
+let refQuery='SELECT * FROM deposit WHERE reference=?';
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    const {name, dob, user_id, user_type, status}=data;
-    dbcon.query(addquery, [name,dob,user_id,user_type,status], (err, result, fields) => {
+    const {mode, doc, reference, amount, user_id, user_type}=data;
+    dbcon.query(addquery, [mode, doc, reference, amount, user_id, user_type], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -34,8 +35,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {name,dob,user_id,user_type,status,id}=data;
-    dbcon.query(updateQuery,[name,dob,user_id,user_type,status,id], (err, result, fields) => {
+    const {user_id,user_type,remarks,status,amount,id}=data;
+    dbcon.query(updateQuery,[user_id,user_type,remarks,status,amount,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
@@ -74,13 +75,23 @@ const remove = (id, callBack) => {
     });
 }
 
-const userNominee = (data, callBack) => {
+const userDeposit = (data, callBack) => {
     const {user_id, user_type}=data;
-    dbcon.query(userNomineeQuery,[user_id, user_type], (err, result, fields) => {
+    dbcon.query(userQuery,[user_id, user_type], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
     });
 }
 
-module.exports={add,update,find,findall,remove,userNominee};
+
+const refIsExist=(reference_id, callBack) => {
+    dbcon.query(refQuery, [reference_id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result[0]);
+    });
+}
+
+
+module.exports={add,update,find,findall,remove,userDeposit,refIsExist};

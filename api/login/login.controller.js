@@ -27,7 +27,7 @@ if(id==undefined || pass==undefined)
                     response.status(400).json({ message: "Invalid Email or Phone No or Password" });
                     else{ 
                              delete result.pass;
-                             var token = jwt.sign({result}, privateKey); 
+                             var token = jwt.sign({result}, privateKey,{expiresIn:'1h'}); 
                              response.status(200).json({ message: "verified",token,id:result.id,info:result });
                     }
 
@@ -57,7 +57,7 @@ const Customer=(request,response)=>{
                         response.status(400).json({ message: "Invalid Email or Phone No or Password" });
                         else{ 
                                  delete result.pass;
-                                 var token = jwt.sign({result}, privateKey); 
+                                 var token = jwt.sign({result}, privateKey,{expiresIn:'1h'}); 
                                  response.status(200).json({ message: "verified",token,id:result.id,info:result });
                         }
     
@@ -87,8 +87,8 @@ if(id==undefined || pass==undefined)
                     response.status(400).json({ message: "Invalid Email or Phone No or Password" });
                     else{ 
                              delete result.pass;
-                             var token = jwt.sign({result}, privateKey); 
-                             response.status(200).json({ message: "verified",token,id:result.id,infro:result });
+                             var token = jwt.sign({result}, privateKey,{expiresIn:'1h'}); 
+                             response.status(200).json({ message: "verified",token,id:result.id,info:result });
                     }
 
                 });
@@ -117,7 +117,7 @@ if(id==undefined || pass==undefined)
                     response.status(400).json({ message: "Invalid Email or Phone No or Password" });
                     else{ 
                              delete result.pass;
-                             var token = jwt.sign({result}, privateKey); 
+                             var token = jwt.sign({result}, privateKey,{expiresIn:'1h'}); 
                              response.status(200).json({ message: "verified",token,id:result.id,info:result });
                          }
 
