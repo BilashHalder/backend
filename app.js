@@ -20,6 +20,7 @@ const SalaryRouter=require('./api/salary/salary.route');
 const LoginRouter=require('./api/login/login.route');
 const ContactRouter=require('./api/contact/contact.route');
 const DepositRouter=require('./api/deposit/deposit.route');
+const PayoutRouter=require('./api/payout/payout.route');
 
 
 
@@ -82,6 +83,7 @@ app.use("/api/salary",SalaryRouter);
 app.use("/api/login",LoginRouter);
 app.use("/api/contact",ContactRouter);
 app.use("/api/deposit",DepositRouter);
+app.use("/api/payout",PayoutRouter);
 
 
 
@@ -96,6 +98,12 @@ app.get("/status", (request, response) => {
         response.status(200).json({
         message: "Connection Established"
     });
+});
+
+
+app.post("/test", (request, response) => {
+    console.log(request.body)
+    response.status(200).json({data:request.body});
 });
 
 

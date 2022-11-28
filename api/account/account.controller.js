@@ -106,6 +106,7 @@ const Remove_ = (request, response) => {
 
 
 const UserAccounts_ = (request, response) => {
+  console.log(request.body)
     let {user_id,user_type}=request.body;
     if(user_id==undefined || user_type==undefined)
         response.status(400).json({ message: invalidrequest });

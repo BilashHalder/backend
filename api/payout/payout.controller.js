@@ -1,6 +1,6 @@
-const { add, update, find, findall, remove } = require("./salary.services");
+const { add, update, find, findall,findinvesment,userpayout, remove } = require("./payout.services");
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
-
+////invesment_id,account_no,ifsc_code,amount,user_id,user_type, transaction_id, status
 
 
 
@@ -79,11 +79,6 @@ const Update_ = (request, response) => {
 
 
 
-
-
-
-
-
 const Find_ = (request, response) => {
   let _id = request.params.id;
   if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
@@ -98,6 +93,32 @@ const Find_ = (request, response) => {
 };
 
 
+const InvesmentPayouts_ = (request, response) => {
+  let _id = request.params.id;
+  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
+  else {
+    findinvesment(_id, (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: datanotfound });
+      else response.status(200).json(result);
+    });
+  }
+};
+
+const UserPayouts_ = (request, response) => {
+ const {user_id,user_type}=request.body;
+
+  if (!user_id || !user_type) response.status(400).json({ message: invalidrequest });
+  else {
+    userpayout(request.body, (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: datanotfound });
+      else response.status(200).json(result);
+    });
+  }
+};
 
 
 
@@ -125,4 +146,6 @@ const Remove_ = (request, response) => {
     });
   }
 };
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ };
+
+
+module.exports = { Find_, FindAll_, Add_, Update_,InvesmentPayouts_,UserPayouts_, Remove_ };
