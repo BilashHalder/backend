@@ -6,7 +6,6 @@ const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror
 
 
 const Add_ = (request, response) => {
-console.log(request.body)
   let {basic, hra, conveyance, medical, special, pf, insurance, tax}=request.body;
 
   if(!(basic)||!(hra)||!(conveyance)||!(medical)||!(special)||!(pf)||!(insurance)||!(tax))

@@ -10,7 +10,7 @@ let findQuery='SELECT * FROM customer WHERE id=?';
 let findAllQuery='SELECT * FROM customer';
 let deleteQuery='DELETE FROM customer WHERE id=?';
 let findbyemailQuery="SELECT * FROM customer WHERE email=? OR phone=?"
-
+let referralQuery="SELECT * FROM customer WHERE referred_by=?"
 
 // Add Data in the Database....
 
@@ -65,6 +65,16 @@ const findall = (id, callBack) => {
     });
 }
 
+
+const findreferral = (ref_key, callBack) => {
+    dbcon.query(referralQuery, [ref_key], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+
+
 // remove Data from the Database....
 
 const remove = (id, callBack) => {
@@ -87,4 +97,4 @@ const isRegister=(data, callBack) => {
     });
 }
 
-module.exports={add,update,find,findall,remove,isRegister};
+module.exports={add,update,find,findall,remove,isRegister,findreferral};

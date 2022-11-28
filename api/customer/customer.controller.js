@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove, isRegister } = require("./customer.services");
+const { add, update, find, findall, remove, isRegister,findreferral } = require("./customer.services");
 const { imageValidation, imageUpload } = require('../../util/lib');
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 const bcrypt = require('bcrypt');
@@ -135,6 +135,8 @@ const Find_ = (request, response) => {
 
 
 
+
+
 const FindAll_ = (request, response) => {
   findall(null, (err, result) => {
     if (err) response.status(500).json({ message: servererror });
@@ -143,6 +145,18 @@ const FindAll_ = (request, response) => {
     else response.status(200).json(result);
   });
 };
+
+
+const FindReferrals_ = (request, response) => {
+  let ref_key=request.params.id;
+  findreferral(ref_key, (err, result) => {
+    if (err) response.status(500).json({ message: servererror });
+    else if (result.length == 0)
+      response.status(404).json({ message: datanotfound });
+    else response.status(200).json(result);
+  });
+};
+
 
 
 
@@ -185,4 +199,4 @@ const Verify=(request, response)=>{
 }
 
 
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,Verify};
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,Verify,FindReferrals_};

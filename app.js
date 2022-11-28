@@ -102,7 +102,6 @@ app.get("/status", (request, response) => {
 
 
 app.post("/test", (request, response) => {
-    console.log(request.body)
     response.status(200).json({data:request.body});
 });
 
