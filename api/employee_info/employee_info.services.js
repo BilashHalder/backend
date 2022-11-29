@@ -6,7 +6,7 @@ const dbcon = require("../../config/dbconfig");
 
 let addquery='INSERT INTO employee_info(employee_id,designation_id,salary_id,leave_id,dob,report_to,joining_date, acceptance_file,id_card) VALUES (?,?,?,?,?,?,?,?,?)';
 let updateQuery='UPDATE employee_info SET employee_id=?,designation_id=?,salary_id=?,leave_id=?,dob=?,report_to=?,joining_date=?,acceptance_file=?,id_card=? WHERE id=?';
-let findQuery='SELECT * FROM employee_info WHERE id=?';
+let findQuery='SELECT * FROM employee_info WHERE employee_id=?';
 let findAllQuery='SELECT * FROM employee_info';
 let deleteQuery='DELETE FROM employee_info WHERE id=?';
 
