@@ -5,7 +5,7 @@ const dbcon = require("../../config/dbconfig");
  ***********************************/
 //name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status
 let addquery='INSERT INTO associate(name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status) VALUES (?,?,?,?,?,?,?,?,?,?)';
-let updateQuery='UPDATE associate SET name=?,gender=?,email=?,commission_rate=?,employee_id=?,phone=?,balance=?,pass=?,image=?,status=? WHERE id=?';
+let updateQuery='UPDATE associate SET name=?,gender=?,email=?,commission_rate=?,employee_id=?,phone=?,balance=?,pass=?,image=?,status=?,referral_key=? WHERE id=?';
 let findQuery='SELECT * FROM associate WHERE id=?';
 let findAllQuery='SELECT * FROM associate';
 let deleteQuery='DELETE FROM associate WHERE id=?';
@@ -37,8 +37,9 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status,id}=data;
-    dbcon.query(updateQuery, [name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status,id], (err, result, fields) => {
+    console.log(data)
+    const {name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status,referral_key,id}=data;
+    dbcon.query(updateQuery, [name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status,referral_key,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);

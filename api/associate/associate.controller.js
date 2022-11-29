@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const Add_ = async (request, response) => {
   let { name,gender,email,commission_rate,employee_id,phone } = request.body;
-  if (name == undefined || gender == undefined || email == undefined ||commission_rate==undefined||employee_id==undefined|| phone == undefined || referred_by == undefined)
+  if (name == undefined || gender == undefined || email == undefined ||commission_rate==undefined||employee_id==undefined|| phone == undefined )
     response.status(404).json({ message: invalidrequest });
   else if (request.files == null)
     response.status(404).json({ message: invalidrequest });
@@ -25,7 +25,7 @@ const Add_ = async (request, response) => {
         response.status(500).json({ message: servererror });
       }
       else {
-        obj.img = fu;
+        obj.image = fu;
         isRegister(obj, (err, result) => {
           if (err)
             response.status(500).json({ message: err });
@@ -56,7 +56,7 @@ const Update_ = (request, response) => {
     find(request.params.id, async (err, result) => {
       if (err)
         response.status(500).json({ message: servererror });
-      else if (result.length == 0)
+      else if (!result)
         response.status(404).json({ message: invalidrequest });
       else {
         let oldData = result;
@@ -78,6 +78,9 @@ const Update_ = (request, response) => {
           if (newData.employee_id != undefined && newData.employee_id != oldData.employee_id)
           oldData = { ...oldData, employee_id: newData.employee_id }
 
+          if (newData.referral_key != undefined && newData.referral_key != oldData.referral_key)
+          oldData = { ...oldData, referral_key: newData.referral_key }
+          
         if (newData.phone != undefined && newData.phone != oldData.phone)
           oldData = { ...oldData, phone: newData.phone }
         if (newData.status != undefined && newData.status != oldData.status)
