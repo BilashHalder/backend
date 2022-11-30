@@ -4,19 +4,19 @@ const dbcon = require("../../config/dbconfig");
  * all database query
  ***********************************/
 
-let addquery='INSERT INTO contact_us(name,phone_no,subject,message) VALUES (?,?,?,?)';
-let updateQuery='UPDATE contact_us SET name=?,phone_no=?,subject=?,message=?,status=?,remarks=? WHERE id=?';
-let findQuery='SELECT * FROM contact_us WHERE id=?';
-let findAllQuery='SELECT * FROM contact_us';
-let deleteQuery='DELETE FROM contact_us WHERE id=?';
+let addquery='INSERT INTO request( name, subject, message, email,phone, request_type) VALUES (?,?,?,?,?,?)';
+let updateQuery='UPDATE request SET name=?,subject=?,message=?,email=?,phone=?,remarks=?,request_type=?,status=? WHERE id=?';
+let findQuery='SELECT * FROM request WHERE id=?';
+let findAllQuery='SELECT * FROM request';
+let deleteQuery='DELETE FROM request WHERE id=?';
 
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    const {name,phone_no,subject,message}=data;
-    dbcon.query(addquery, [name,phone_no,subject,message], (err, result, fields) => {
+    const {name, subject, message, email,phone, request_type}=data;
+    dbcon.query(addquery, [name, subject, message, email,phone, request_type], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -34,8 +34,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {name,phone_no,subject,message,status,remarks,id}=data;
-    dbcon.query(updateQuery, [name,phone_no,subject,message,status,remarks,id], (err, result, fields) => {
+    const {name,subject,message,email,phone,remarks,request_type,status,id}=data;
+    dbcon.query(updateQuery, [name,subject,message,email,phone,remarks,request_type,status,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);

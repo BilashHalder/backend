@@ -5,9 +5,9 @@ const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror
 
 const Add_ = (request, response) => {
 
-  let {name,phone_no,subject,message}=request.body;
+  let {name, subject, message, email,phone, request_type }=request.body;
 
-  if(!(name)||!(phone_no)||!(subject)||!(message))
+  if(!(name)||!(phone_no)||!(subject)||!(message) || !email || !phone || !request_type)
   response.status(404).json({ message: invalidrequest });
   else{
   add(request.body,(err,result)=>{
@@ -36,14 +36,16 @@ const Update_ = (request, response) => {
         let oldData=result;
 
 
-//name,phone_no,subject,message,status,remarks
+//,,,,,remarks,,
 
         if(newData.name!=undefined && newData.name!=oldData.name)
         oldData={...oldData,name:newData.name};
 
-        if(newData.phone_no!=undefined && newData.phone_no!=oldData.phone_no)
-        oldData={...oldData,phone_no:newData.phone_no};
+        if(newData.phone!=undefined && newData.phone!=oldData.phone)
+        oldData={...oldData,phone:newData.phone};
 
+        if(newData.email!=undefined && newData.email!=oldData.email)
+        oldData={...oldData,email:newData.email};
 
         if(newData.subject!=undefined && newData.subject!=oldData.subject)
         oldData={...oldData,subject:newData.subject};
@@ -54,6 +56,9 @@ const Update_ = (request, response) => {
 
         if(newData.status!=undefined && newData.status!=oldData.status)
         oldData={...oldData,status:newData.status};
+
+        if(newData.request_type!=undefined && newData.request_type!=oldData.request_type)
+        oldData={...oldData,request_type:newData.request_type};
 
         if(newData.remarks!=undefined && newData.remarks!=oldData.remarks)
         oldData={...oldData,remarks:newData.remarks};

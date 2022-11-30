@@ -10,8 +10,8 @@ let findQuery='SELECT * FROM associate WHERE id=?';
 let findAllQuery='SELECT * FROM associate';
 let deleteQuery='DELETE FROM associate WHERE id=?';
 let findbyemailQuery="SELECT * FROM associate WHERE email=? OR phone=?"
-
 let refercustomerQuery="SELECT * FROM customer WHERE referred_by =?"
+let updateBalanceQuery="UPDATE associate SET balance=? WHERE id=?"
 
 
 // Add Data in the Database....
@@ -98,5 +98,7 @@ const refHistory=(ref_key, callBack)=>{
     return callBack(null,result);
 });
 }
+
+
 module.exports={add,update,find,findall,remove,isRegister,refHistory};
 

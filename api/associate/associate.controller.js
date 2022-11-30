@@ -1,4 +1,4 @@
-const { add, update, find, findall, remove, isRegister,refHistory } = require("./associate.services");
+const { add, update, find, findall, remove, isRegister,refHistory,updateassociatebalance } = require("./associate.services");
 const { imageValidation, imageUpload } = require('../../util/lib');
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 const bcrypt = require('bcrypt');
@@ -180,6 +180,8 @@ const Referaal=(request, response)=>{
 
 
 }
+
+
 
 
 module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,Referaal};

@@ -1,5 +1,6 @@
 const { add,update,find,findall,remove,userDeposit,refIsExist } = require("./deposit.services");
 const { imageValidation, imageUpload } = require('../../util/lib');
+const dbcon=require('../../config/dbconfig')
 //mode, doc, reference, remarks, amount, user_id, user_type
 
 
@@ -140,5 +141,92 @@ const UserDeposit_ = (request, response) => {
   }  
 };
 
+const AcceptPayment_=(request, response)=>{
+const {id,user_id,user_type,amount}=request.body;
+if(id==undefined|| user_id==undefined || user_type==undefined || amount==undefined)
+      response.status(400).json({ message: "Invalid Request" });
+else{
+  let updateStatQuery="UPDATE deposit SET status=1 WHERE id=?"
+  if(user_type==1)
+  {
+    let findquery="SELECT * FROM customer WHERE id=?";
+    let updateQuery="UPDATE customer SET balance=? WHERE id=?";
+    dbcon.query(findquery,[user_id],(err,result,fields)=>{
+     
+      if(err)
+      response.status(400).json(err);
+      else if(!result)
+      response.status(400).json(err);
+      else 
+      {
+        let newbal=parseFloat(result[0].balance)+parseFloat(amount);
+        dbcon.query(updateQuery,[newbal,user_id],(err,result,fields)=>{
+          if(err)
+          response.status(400).json(err);
+          else{
+            dbcon.query(updateStatQuery,[id],(err,result,fields)=>{
+              if(err)
+              response.status(400).json(err);
+              else{
+                response.status(200).json({message:"balance Updated"}); 
+              }
+            }); 
+          }
+        });
+      }
 
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,UserDeposit_};
+    })
+
+  }
+  else if(user_type==2){
+    let findquery="SELECT * FROM associate WHERE id=?";
+    let updateQuery="UPDATE associate SET balance=? WHERE id=?";
+    dbcon.query(findquery,[user_id],(err,result,fields)=>{
+     
+      if(err)
+      response.status(400).json(err);
+      else if(!result)
+      response.status(400).json(err);
+      else 
+      {
+        let newbal=parseFloat(result[0].balance)+parseFloat(amount);
+        dbcon.query(updateQuery,[newbal,user_id],(err,result,fields)=>{
+          if(err)
+          response.status(400).json(err);
+          else{
+            dbcon.query(updateStatQuery,[id],(err,result,fields)=>{
+              if(err)
+              response.status(400).json(err);
+              else{
+                response.status(200).json({message:"balance Updated"}); 
+              }
+            });
+            
+          }
+        });
+      }
+
+    })
+  }
+  else response.status(400).json({ message: "Invalid User Type" });
+}
+}
+
+const RejectPayment_=(request, response)=>{
+  const {id,remarks}=request.body;
+  
+  if(!id || !remarks)
+        response.status(400).json({ message: "Invalid Request" });
+  else{
+    let updateQuery="UPDATE deposit SET status=2,remarks=? WHERE id=?";
+    dbcon.query(updateQuery,[remarks,id],(err,result,fields)=>{  
+      if(err)
+      response.status(400).json(err);
+      else
+      response.status(200).json({message:"Data Updated"}); 
+    })
+  }
+  }
+
+
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,UserDeposit_,AcceptPayment_,RejectPayment_};
