@@ -1,9 +1,9 @@
-const { add, update, find, findall, remove } = require("./report.services");
+const { add,update,find,findall,remove,findbydate,findempreport,reporttoapprove,findbyempid } = require("./report.services");
 
 
 
 const Add_ = (request, response) => {
-  let { employee_id} = request.body;
+  let { employee_id,} = request.body;
   if(employee_id==undefined)
   response.status(400).json({ message: "Invalid Request" });
   else{
@@ -21,7 +21,7 @@ const Add_ = (request, response) => {
 
 
 const Update_ = (request, response) => {
-  let {employee_id, report_to,report_date,start_time,submit_time, report, document_url, status} = request.body;
+  let {report_to,report,document_url,status,id} = request.body;
 
   if (isNaN(request.params.id))
     response.status(400).json({ message: "Invalid Request" });

@@ -23,6 +23,7 @@ const PayoutRouter=require('./api/payout/payout.route');
 const RequestRouter=require('./api/request/request.route');
 const LeaveRouter=require('./api/leave/leave.route');
 const WorkReportRouter=require('./api/report/report.route');
+const ApplyLeaveRouter=require('./api/leave _request/leave_request.route');
 
 
 
@@ -88,6 +89,7 @@ app.use("/api/payout",PayoutRouter);
 app.use("/api/others",RequestRouter);
 app.use("/api/leave",LeaveRouter);
 app.use("/api/report",WorkReportRouter);
+app.use("/api/apply_leave",ApplyLeaveRouter);
 
 
 

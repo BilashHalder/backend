@@ -6,13 +6,19 @@ const dbcon = require("../../config/dbconfig");
 //employee_id, report_to,report_date,start_time,submit_time, report, document_url, status
 
 
-let addquery='INSERT INTO work_report(employee_id)VALUES (?)';
-let updateQuery='UPDATE work_report SET employee_id=?,report_to=?,report_date=?,start_time=?,submit_time=?,report=?,document_url=?,status=? WHERE id=?';
-let findQuery='SELECT * FROM work_report WHERE id=?';
-let findAllQuery='SELECT * FROM work_report';
-let deleteQuery='DELETE FROM work_report WHERE id=?';
 
-//let employeeAllQuery='SELECT * FROM qualification WHERE employee_id=?';
+let addQuery='INSERT INTO work_report(employee_id,report_date,start_time) VALUES (?,CURRENT_DATE,CURRENT_TIME)';
+let updateQuery='UPDATE work_report SET report_to=?,submit_time=CURRENT_TIME,report=?,document_url=?,status=? WHERE id=?';
+let finbByDateQuery='SELECT * FROM work_report WHERE report_date=?';
+let empReportQuery='SELECT * FROM work_report WHERE report_date>=? AND report_date<=? AND employee_id=?';
+let approveList="SELECT * FROM work_report WHERE report_to=?";
+let isExist='SELECT * FROM work_report WHERE report_date=CURRENT_DATE AND employee_id=?';
+let findAllQuery='SELECT * FROM work_report';
+let findbyempQuery='SELECT * FROM work_report WHERE employee_id=?';
+
+let findbyid='SELECT * FROM work_report WHERE id=?'
+
+
 
 
 // Add Data in the Database....
@@ -20,17 +26,19 @@ let deleteQuery='DELETE FROM work_report WHERE id=?';
 
 const add = (data, callBack) => {
     const {employee_id}=data;
-    dbcon.query(addquery, [employee_id], (err, result, fields) => {
+    dbcon.query(isExist,[employee_id], (err, result, fields) =>{
         if(err)
         return callBack(err);
         else{
-            find(result.insertId,(err,res)=>{
+          if(result.length==0){
+            dbcon.query(addQuery,[employee_id],(err, result, fields) =>{
                 if(err)
                 return callBack(err);
                 else
-                return callBack(null,res);
-            })
-        }
+                return callBack(null,{res:"ok"});
+            });
+          }  
+        } 
     });
 }
 
@@ -38,8 +46,38 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {employee_id, report_to,report_date,start_time,submit_time, report, document_url, status,id}=data;
-    dbcon.query(updateQuery,[employee_id, report_to,report_date,start_time,submit_time, report, document_url, status,id], (err, result, fields) => {
+    const {report_to,report,document_url,status,id}=data;
+    dbcon.query(updateQuery,[report_to,report, document_url, status,id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+
+
+// Find By date of all employee....
+
+const findbydate = (wdate, callBack) => {
+    dbcon.query(finbByDateQuery, [wdate], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+
+// Find  employee Work report ....
+
+const findempreport = (data, callBack) => {
+    const {start_date,end_date,employee_id}=data;
+    dbcon.query(empReportQuery,[start_date,end_date,employee_id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+
+const reporttoapprove = (employee_id, callBack) => {
+    dbcon.query(approveList,[employee_id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
@@ -50,7 +88,7 @@ const update = (data, callBack) => {
 // Find Data from the Database....
 
 const find = (id, callBack) => {
-    dbcon.query(findQuery, [id], (err, result, fields) => {
+    dbcon.query(findbyid, [id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result[0]);
@@ -68,6 +106,15 @@ const findall = (id, callBack) => {
     });
 }
 
+const findbyempid = (id, callBack) => {
+    dbcon.query(findbyempQuery, [id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result[0]);
+    });
+}
+
+
 // remove Data from the Database....
 
 const remove = (id, callBack) => {
@@ -78,14 +125,8 @@ const remove = (id, callBack) => {
     });
 }
 
-// const employeeall = (id, callBack) => {
-//     dbcon.query(employeeAllQuery,[id], (err, result, fields) => {
-//         if(err)
-//         return callBack(err);
-//         return callBack(null,result);
-//     });
-// }
 
 
 
-module.exports={add,update,find,findall,remove};
+
+module.exports={add,update,find,findall,remove,findbydate,findempreport,reporttoapprove,findbyempid};

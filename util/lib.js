@@ -66,6 +66,16 @@ const mysqlDateToDate=(date)=>{
 
 
 
+const CurrentDateTime=()=>{
+    let date = new Date().toJSON();
+    let temp=date.split('T');
+    let obj={
+        date:temp[0],
+        time:temp[1]
+    }
+    return obj;
+}
 
-module.exports = { imageValidation ,imageUpload,pdfValidation,pdfUpload,dateToMysqlDate,mysqlDateToDate};
+
+module.exports = { imageValidation ,imageUpload,pdfValidation,pdfUpload,dateToMysqlDate,mysqlDateToDate,CurrentDateTime};
 

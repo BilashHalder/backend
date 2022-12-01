@@ -3,21 +3,21 @@ const dbcon = require("../../config/dbconfig");
 /***********************************
  * all database query
  ***********************************/
-//`id`,annual, casual,sick,maternity,bereavement,others
+// `leave_apply`(`id`, `type`, `from_date`, `to_date`, `total_days`, `remarks`, `status`
 
-let addquery='INSERT INTO leaves(annual,casual,sick,maternity,bereavement,others) VALUES (?,?,?,?,?,?)';
-let updateQuery='UPDATE leaves SET annual=?,casual=?,sick=?,maternity=?,bereavement=?,others=? WHERE id=?';
-let findQuery='SELECT * FROM leaves WHERE id=?';
-let findAllQuery='SELECT * FROM leaves';
-let deleteQuery='DELETE FROM leaves WHERE id=?';
+let addquery='INSERT INTO leave_apply(type,from_date,to_date,total_days) VALUES (?,?,?,?)';
+let updateQuery='UPDATE leave_apply SET type=?,from_date=?,to_date=?,total_days=?,remarks=?,status=? WHERE id=?';
+let findQuery='SELECT * FROM leave_apply WHERE id=?';
+let findAllQuery='SELECT * FROM leave_apply';
+let deleteQuery='DELETE FROM leave_apply WHERE id=?';
 
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    const {annual, casual,sick,maternity,bereavement,others}=data;
-    dbcon.query(addquery, [annual, casual,sick,maternity,bereavement,others], (err, result, fields) => {
+    const {type,from_date,to_date,total_days}=data;
+    dbcon.query(addquery, [type,from_date,to_date,total_days], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -35,8 +35,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {annual, casual,sick,maternity,bereavement,others,id}=data;
-    dbcon.query(updateQuery,[annual, casual,sick,maternity,bereavement,others,id], (err, result, fields) => {
+    const {type,from_date,to_date,total_days,remarks,status,id}=data;
+    dbcon.query(updateQuery,[type,from_date,to_date,total_days,remarks,status,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
@@ -58,6 +58,7 @@ const find = (id, callBack) => {
 // find all from the Database....
 
 const findall = (id, callBack) => {
+    console.log("ooo")
     dbcon.query(findAllQuery, [], (err, result, fields) => {
         if(err)
         return callBack(err);

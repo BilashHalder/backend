@@ -1,9 +1,9 @@
-const { add, update, find, findall, remove } = require("./leave.services");
+const { add, update, find, findall, remove } = require("./leave_requset.services");
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
 const Add_ = (request, response) => {
-  let {type,from_date,to_date,total_days}=request.body;
-  if(type==undefined||from_date==undefined|| to_date==undefined||total_days==undefined)
+  let {annual,casual,sick,maternity,bereavement,others}=request.body;
+  if(annual==undefined||casual==undefined|| sick==undefined||maternity==undefined||bereavement==undefined||others==undefined)
   response.status(404).json({ message: invalidrequest });
   else{
   add(request.body,(err,result)=>{
@@ -19,7 +19,7 @@ const Add_ = (request, response) => {
 };
 
 
-////,,,,,
+////, ,,,,
 
 const Update_ = (request, response) => {
   if (isNaN(request.params.id))
@@ -34,25 +34,25 @@ const Update_ = (request, response) => {
         let newData=request.body;
         let oldData=result;
 
-        if(newData.type!=undefined && newData.type!=oldData.type)
-        oldData={...oldData,type:newData.type};
+        if(newData.annual!=undefined && newData.annual!=oldData.annual)
+        oldData={...oldData,annual:newData.annual};
 
-        if(newData.from_date!=undefined && newData.from_date!=oldData.from_date)
-        oldData={...oldData,from_date:newData.from_date};
-
-
-        if(newData.to_date!=undefined && newData.to_date!=oldData.to_date)
-        oldData={...oldData,to_date:newData.to_date};
+        if(newData.casual!=undefined && newData.casual!=oldData.casual)
+        oldData={...oldData,casual:newData.casual};
 
 
-        if(newData.total_days!=undefined && newData.total_days!=oldData.total_days)
-        oldData={...oldData,total_days:newData.total_days};
+        if(newData.sick!=undefined && newData.sick!=oldData.sick)
+        oldData={...oldData,sick:newData.sick};
 
-        if(newData.remarks!=undefined && newData.remarks!=oldData.remarks)
-        oldData={...oldData,remarks:newData.remarks};
 
-        if(newData.status!=undefined && newData.status!=oldData.status)
-        oldData={...oldData,status:newData.status};
+        if(newData.maternity!=undefined && newData.maternity!=oldData.maternity)
+        oldData={...oldData,maternity:newData.maternity};
+
+        if(newData.bereavement!=undefined && newData.bereavement!=oldData.bereavement)
+        oldData={...oldData,bereavement:newData.bereavement};
+
+        if(newData.others!=undefined && newData.others!=oldData.others)
+        oldData={...oldData,others:newData.others};
 
         update(oldData,(err, result) => {
           if (err)
@@ -93,6 +93,7 @@ const Find_ = (request, response) => {
 
 
 const FindAll_ = (request, response) => {
+  console.log("aaaa")
   findall(null, (err, result) => {
     if (err) response.status(500).json({ message: servererror });
     else if (result.length == 0)
