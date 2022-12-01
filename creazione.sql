@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 30, 2022 at 09:02 AM
+-- Generation Time: Dec 01, 2022 at 09:17 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `phone`, `balance`, `referred_by`, `pass`, `image`, `status`, `referral_key`) VALUES
-(1, 'Bilash', 1, 'emaiai@kaka.po', '919191991', 9000, 'Admin10101', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '8c8c0129d7bf873e5c0ce570eadc80e1__1669442982395.jpg', 1, '929292'),
+(1, 'Bilash', 1, 'emaiai@kaka.po', '919191991', 13500, 'Admin10101', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '8c8c0129d7bf873e5c0ce570eadc80e1__1669442982395.jpg', 1, '929292'),
 (2, 'Bilash Halder', 1, 'ibilashhalder@gmail.com', '87654331331', 6000, '123456', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '7d56806e675a892e5055ed43ba21dbbb__1667970228324.jpg', 1, NULL),
 (3, 'Bilash Halder', 1, 'ibilashhalder@gmail.co', '8765433130', 6000, '123456', '$2b$10$2qb88J1qM7C3biaZIrCPsu2CXGCcewpcZQZdv1nmL48RMDKS0eoSi', '7d56806e675a892e5055ed43ba21dbbb__1667970445854.jpg', 1, NULL),
 (4, 'full_name', 1, 'nidobe3103@otodir.com', '1188181', 6000, '123456', '$2b$10$8u7KKNoo6.jTHKI7RfOD4.OCQFrgOtQzX3UZsJfIRFU.j4E2TG3cG', '7d56806e675a892e5055ed43ba21dbbb__1667970492122.jpg', 1, NULL),
@@ -205,9 +205,9 @@ CREATE TABLE IF NOT EXISTS `deposit` (
 --
 
 INSERT INTO `deposit` (`id`, `date_time`, `mode`, `doc`, `reference`, `remarks`, `status`, `amount`, `user_id`, `user_type`) VALUES
-(1, '2022-11-26 11:43:47', 1, '8c8c0129d7bf873e5c0ce570eadc80e1__1669443227623.jpg', '17717818818', NULL, 0, 4500, 1, 1),
+(1, '2022-11-26 11:43:47', 1, '8c8c0129d7bf873e5c0ce570eadc80e1__1669443227623.jpg', '17717818818', NULL, 1, 4500, 1, 1),
 (2, '2022-11-26 11:44:25', 1, '8c8c0129d7bf873e5c0ce570eadc80e1__1669443265212.jpg', '177178188', 'This is remarks ok', 2, 4500, 1, 1),
-(3, '2022-11-26 11:49:58', 1, '', '17717800', NULL, 0, 4500, 1, 1),
+(3, '2022-11-26 11:49:58', 1, '', '17717800', 'aj jaj jaja', 2, 4500, 1, 1),
 (4, '2022-11-26 11:50:23', 2, '', 'pauuauau', NULL, 0, 4500, 1, 1),
 (5, '2022-11-26 14:57:51', 2, '', '1222', NULL, 0, 122, 1, 1),
 (6, '2022-11-26 15:18:27', 2, '', '1919199119191', NULL, 0, 2000, 2, 1),
@@ -264,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `image` varchar(100) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee`
@@ -287,7 +287,8 @@ INSERT INTO `employee` (`id`, `name`, `gender`, `email`, `phone`, `balance`, `pa
 (14, 'lorem ttt', 2, 'lorm@ttt.com', '2211334455', 0, '$2b$10$xd2mKpcChcPhh/zw1MMLM.rn2lgt3.38kR2JxdRFDsYeR1o/Whlpy', 'b16e407218c05a5afcebeea41ecdbe1c__1668493515029.jpg', 1),
 (15, 'Bilas', 2, 'bia@haa.com', '2233449098', 0, '$2b$10$ZPpNJOxlcz5oc6fz8KApAOa1EMY1sS8qWuOUokrD89YnUGj1Ht3ru', 'b16e407218c05a5afcebeea41ecdbe1c__1668493515029.jpg', 1),
 (16, 'lorem ttt', 2, 'lorem@lorem.co', '3909218900', 0, '$2b$10$Y0/br5BpQkxNuNvDu2ls.eSwuiJb5x9xHAmBQ7WIx2AZT5pB1HwKW', '2c67f965c6047b1a760b2433859a8869__1668493715219.png', 1),
-(17, 'Sachin deshmukh', 1, 'sachin@gmail.com', '8899228800', 0, '$2b$10$psf9i0KXT2ze8RWK9Zm5xe5AfcfIHOI2qSrXSqcs2OJ8qL59ulfFu', 'b2515365e0fcc1fd7cc6f23a774913e2__1668748927989.jpg', 1);
+(17, 'Sachin deshmukh', 1, 'sachin@gmail.com', '8899228800', 0, '$2b$10$psf9i0KXT2ze8RWK9Zm5xe5AfcfIHOI2qSrXSqcs2OJ8qL59ulfFu', 'b2515365e0fcc1fd7cc6f23a774913e2__1668748927989.jpg', 1),
+(18, 'ahahah ahhaha', 3, 'hahahah@ahahah.com', '7766225522', 0, '$2b$10$g9vBv.tpkSpWCmXQWXxeheIyeFZ2IsKN2E5pIUDsmx66t3eT27bPy', '42d41e6133b1ff5a44c537ea957a7ab9__1669872494619.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -355,7 +356,7 @@ INSERT INTO `investment` (`id`, `user_id`, `user_type`, `ammount`, `date_time`, 
 (6, 1, 2, 1000, '2022-11-11 11:44:12', 3, 1, '772727272772', '22', NULL, 1, NULL, 1, NULL),
 (7, 1, 1, 1000, '2022-11-15 10:30:40', 3, 2, '181881818', '23', NULL, 1, NULL, 1, NULL),
 (8, 1, 1, 1000, '2022-11-15 10:33:17', 3, 2, '181881818', '24', NULL, 3, NULL, 1, NULL),
-(9, 1, 1, 9000, '2022-11-25 12:04:12', 3, 7, '234523452345', '25', NULL, 1, NULL, 1, NULL),
+(9, 1, 1, 9000, '2022-11-25 12:04:12', 3, 7, '234523452345', '25', 'e168795db05ae628500515b4c3275797__1669878504285.pdf', 1, NULL, 0, NULL),
 (10, 1, 1, 9000, '2022-11-25 12:16:05', 3, 7, '1245543210', '26', NULL, 1, NULL, 1, NULL),
 (11, 1, 1, 80000, '2022-11-25 12:16:30', 3, 3, '5454787890', '27', NULL, 1, NULL, 0, NULL),
 (12, 1, 1, 10000, '2022-11-25 12:17:13', 3, 7, '1245543210', '28', NULL, 1, NULL, 1, NULL),
@@ -397,6 +398,24 @@ INSERT INTO `kyc` (`id`, `adhar_no`, `pan_no`, `address`, `adhar_verified`, `pan
 (5, '367598346013', 'AIFPH1669F', 'Kolkata New Address Kolkata Nio Pla', 1, 1, 10, 1),
 (7, '347698761230', 'AIFPH1669F', 'Arshdeep Singh to Latham, 3 runs, low full toss on the pads', 1, 1, 1, 1),
 (8, '454587980987', 'AIFPH1669F', 'View Photo EXIF Metadata on iPhone, Android, Mac, and Windows', 1, 1, 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave`
+--
+
+DROP TABLE IF EXISTS `leave`;
+CREATE TABLE IF NOT EXISTS `leave` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `annual` int(11) DEFAULT NULL,
+  `casual` int(11) DEFAULT NULL,
+  `sick` int(11) DEFAULT NULL,
+  `maternity` int(11) DEFAULT NULL,
+  `bereavement` int(11) DEFAULT NULL,
+  `others` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -569,7 +588,16 @@ CREATE TABLE IF NOT EXISTS `request` (
   `request_type` int(11) DEFAULT NULL COMMENT '1-contact us 2-BA 3-CSP',
   `status` int(11) DEFAULT '0' COMMENT '0-pending 1-complete',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `request`
+--
+
+INSERT INTO `request` (`id`, `name`, `subject`, `message`, `email`, `phone`, `remarks`, `request_type`, `status`) VALUES
+(1, 'Neque porro', 'quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,', 'test@test.com', '1234567890', 'aaaaaaaaa', 1, 1),
+(2, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'aaaaaaaaa', 2, 0),
+(3, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'This is Solved', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -597,6 +625,38 @@ CREATE TABLE IF NOT EXISTS `salary` (
 
 INSERT INTO `salary` (`id`, `basic`, `hra`, `conveyance`, `medical`, `special`, `pf`, `insurance`, `tax`) VALUES
 (28, 1000, 1000, 1000, 1000, 1000, 1000, 100, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `work_report`
+--
+
+DROP TABLE IF EXISTS `work_report`;
+CREATE TABLE IF NOT EXISTS `work_report` (
+  `report_id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `report_date` varchar(50) DEFAULT NULL,
+  `start_time` varchar(50) DEFAULT NULL,
+  `report_to` int(11) DEFAULT NULL,
+  `submit_time` time DEFAULT NULL,
+  `report` varchar(1000) DEFAULT NULL,
+  `document_url` varchar(100) DEFAULT NULL,
+  `login_location` varchar(200) DEFAULT NULL,
+  `logout_location` varchar(200) DEFAULT NULL,
+  `reject_for` varchar(200) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '2' COMMENT '1-accept 0-reject 2-pending 3-submitted',
+  PRIMARY KEY (`report_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `work_report`
+--
+
+INSERT INTO `work_report` (`report_id`, `employee_id`, `report_date`, `start_time`, `report_to`, `submit_time`, `report`, `document_url`, `login_location`, `logout_location`, `reject_for`, `status`) VALUES
+(1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(2, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3, 1, '2022-12-01', '14:39:50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

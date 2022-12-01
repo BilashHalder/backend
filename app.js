@@ -18,9 +18,11 @@ const PaymentRouter=require('./api/payment/payment.route');
 const KycRouter=require('./api/kyc/kyc.route');
 const SalaryRouter=require('./api/salary/salary.route');
 const LoginRouter=require('./api/login/login.route');
-const RequestRouter=require('./api/report/report.route');
 const DepositRouter=require('./api/deposit/deposit.route');
 const PayoutRouter=require('./api/payout/payout.route');
+const RequestRouter=require('./api/request/request.route');
+const LeaveRouter=require('./api/leave/leave.route');
+const WorkReportRouter=require('./api/report/report.route');
 
 
 
@@ -81,9 +83,12 @@ app.use("/api/payment",PaymentRouter);
 app.use("/api/kyc",KycRouter);
 app.use("/api/salary",SalaryRouter);
 app.use("/api/login",LoginRouter);
-app.use("/api/requset",RequestRouter);
 app.use("/api/deposit",DepositRouter);
 app.use("/api/payout",PayoutRouter);
+app.use("/api/others",RequestRouter);
+app.use("/api/leave",LeaveRouter);
+app.use("/api/report",WorkReportRouter);
+
 
 
 

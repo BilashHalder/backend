@@ -99,8 +99,8 @@ if(id==undefined || pass==undefined)
 }
 
 const Employee=(request,response)=>{
-    const {id,pass}=request.body;
-if(id==undefined || pass==undefined)
+    const {id,pass,login_location}=request.body;
+if(id==undefined || pass==undefined || login_location==undefined)
     response.status(500).json({ status:"failed", message:"Please Enter User Id And Password" });
     else{
         findEmployee(id,(err,result)=>{
