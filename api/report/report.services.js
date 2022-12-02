@@ -3,18 +3,23 @@ const dbcon = require("../../config/dbconfig");
 /***********************************
  * all database query
  ***********************************/
-//employee_id, report_to,report_date,start_time,submit_time, report, document_url, status
+//`report_id`, `employee_id`, `report_date`, `start_time`, `report_to`, `submit_time`, `report`, `document_url`, `login_location`, `logout_location`, `reject_for`, `status`
 
 
 
-let addQuery='INSERT INTO work_report(employee_id,report_date,start_time) VALUES (?,CURRENT_DATE,CURRENT_TIME)';
-let updateQuery='UPDATE work_report SET report_to=?,submit_time=CURRENT_TIME,report=?,document_url=?,status=? WHERE id=?';
+let addQuery='INSERT INTO work_report(employee_id,report_date,start_time,login_location) VALUES (?,CURRENT_DATE,CURRENT_TIME,?)';
+
+
+
+let updateQuery='UPDATE work_report SET report_to=?,submit_time=CURRENT_TIME,report=?,document_url=?,logout_location=?,status=?,reject_for=? WHERE id=?';
 let finbByDateQuery='SELECT * FROM work_report WHERE report_date=?';
 let empReportQuery='SELECT * FROM work_report WHERE report_date>=? AND report_date<=? AND employee_id=?';
 let approveList="SELECT * FROM work_report WHERE report_to=?";
 let isExist='SELECT * FROM work_report WHERE report_date=CURRENT_DATE AND employee_id=?';
 let findAllQuery='SELECT * FROM work_report';
 let findbyempQuery='SELECT * FROM work_report WHERE employee_id=?';
+
+let acceptQuery="UPDATE work_report SET "
 
 let findbyid='SELECT * FROM work_report WHERE id=?'
 
@@ -25,13 +30,15 @@ let findbyid='SELECT * FROM work_report WHERE id=?'
 
 
 const add = (data, callBack) => {
-    const {employee_id}=data;
+ 
+    const {employee_id,login_location}=data;
     dbcon.query(isExist,[employee_id], (err, result, fields) =>{
         if(err)
-        return callBack(err);
+       { return callBack(err);}
         else{
+        
           if(result.length==0){
-            dbcon.query(addQuery,[employee_id],(err, result, fields) =>{
+            dbcon.query(addQuery,[employee_id,login_location],(err, result, fields) =>{
                 if(err)
                 return callBack(err);
                 else
@@ -125,8 +132,14 @@ const remove = (id, callBack) => {
     });
 }
 
+const todayreport=(employee_id,callBack)=>{
+    dbcon.query(isExist,[employee_id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result[0]);
+    }); 
+}
 
 
 
-
-module.exports={add,update,find,findall,remove,findbydate,findempreport,reporttoapprove,findbyempid};
+module.exports={add,update,find,findall,remove,findbydate,findempreport,reporttoapprove,findbyempid,todayreport};

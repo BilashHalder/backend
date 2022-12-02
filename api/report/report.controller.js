@@ -1,9 +1,9 @@
-const { add,update,find,findall,remove,findbydate,findempreport,reporttoapprove,findbyempid } = require("./report.services");
+const { add,update,find,findall,remove,findbydate,findempreport,reporttoapprove,findbyempid,todayreport } = require("./report.services");
 
 
 
 const Add_ = (request, response) => {
-  let { employee_id,} = request.body;
+  let { employee_id,logout_location} = request.body;
   if(employee_id==undefined)
   response.status(400).json({ message: "Invalid Request" });
   else{
@@ -19,9 +19,9 @@ const Add_ = (request, response) => {
 
 
 
-
+//,=?,document_url=?,=?,status=?,reject_for=
 const Update_ = (request, response) => {
-  let {report_to,report,document_url,status,id} = request.body;
+  let {report_to,report,logout_location,reject_for,status,id} = request.body;
 
   if (isNaN(request.params.id))
     response.status(400).json({ message: "Invalid Request" });
@@ -159,4 +159,20 @@ const FindEmp_ = (request, response) => {
   }
 };
 
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_,FindEmp_ };
+
+const TodayReport_ = (request, response) => {
+  let _id = request.params.id;
+  if (isNaN(_id)) response.status(400).json({ message: "Invalid Request" });
+  else {
+    todayreport(_id, (err, result) => {
+      if (err) response.status(500).json({ message: "Internal Server Error" });
+      else if (!result)
+        response.status(404).json({ message: "No data found" });
+      else response.status(200).json(result);
+    });
+  }
+};
+
+
+
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_,FindEmp_,TodayReport_};

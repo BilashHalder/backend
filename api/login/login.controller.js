@@ -1,4 +1,7 @@
 const {findAdnin,findCustomer,findAssociate,findEmployee}=require('./login.services');
+const {add}=require('../report/report.services')
+
+
 const bcrypt = require('bcrypt');
 const fs=require('fs');
 const saltRounds = 10;
@@ -101,27 +104,32 @@ if(id==undefined || pass==undefined)
 }
 
 const Employee=(request,response)=>{
-    const {id,pass}=request.body;
+    const {id,pass,login_location}=request.body;
 if(id==undefined || pass==undefined)
     response.status(500).json({ status:"failed", message:"Please Enter User Id And Password" });
     else{
         findEmployee(id,(err,result)=>{
-            if(err)
-            response.status(500).json({ message: servererror });
+            if(err){
+                response.status(500).json({ message: servererror });
+            }
+            
             else if(!result){
             response.status(400).json({ message: "Invalid Email or Phone No" });
             }
             else {
                 bcrypt.compare(pass, result.pass,(err, flag)=> {
-                    if(err)
-                    response.status(500).json({ message: servererror });
-                    else if(!flag)
-                    response.status(400).json({ message: "Invalid Email or Phone No or Password" });
-                    else{ 
-                             delete result.pass;
-                             var token = jwt.sign({result}, privateKey); 
-                             response.status(200).json({ message: "verified",token,id:result.id,info:result });
-                    }
+                        if(err)
+                        response.status(500).json({ message: servererror });
+                        else if(!flag)
+                            response.status(400).json({ message: "Invalid Email or Phone No or Password" });     
+                       else{
+                      
+                        let obj={employee_id:result.id,login_location,}
+                        add(obj,(err,res)=>{});
+                        delete result.pass;
+                         var token = jwt.sign({result}, privateKey); 
+                          response.status(200).json({ message: "verified",token,id:result.id,info:result });
+                       }
 
                 });
             }
