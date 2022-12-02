@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 01, 2022 at 09:17 AM
+-- Generation Time: Dec 02, 2022 at 09:20 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `phone`, `balance`, `referred_by`, `pass`, `image`, `status`, `referral_key`) VALUES
 (1, 'Bilash', 1, 'emaiai@kaka.po', '919191991', 13500, 'Admin10101', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '8c8c0129d7bf873e5c0ce570eadc80e1__1669442982395.jpg', 1, '929292'),
-(2, 'Bilash Halder', 1, 'ibilashhalder@gmail.com', '87654331331', 6000, '123456', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '7d56806e675a892e5055ed43ba21dbbb__1667970228324.jpg', 1, NULL),
+(2, 'Bilash Halder', 1, 'ibilashhalder@gmail.com', '87654331331', 73000, '123456', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '7d56806e675a892e5055ed43ba21dbbb__1667970228324.jpg', 1, NULL),
 (3, 'Bilash Halder', 1, 'ibilashhalder@gmail.co', '8765433130', 6000, '123456', '$2b$10$2qb88J1qM7C3biaZIrCPsu2CXGCcewpcZQZdv1nmL48RMDKS0eoSi', '7d56806e675a892e5055ed43ba21dbbb__1667970445854.jpg', 1, NULL),
 (4, 'full_name', 1, 'nidobe3103@otodir.com', '1188181', 6000, '123456', '$2b$10$8u7KKNoo6.jTHKI7RfOD4.OCQFrgOtQzX3UZsJfIRFU.j4E2TG3cG', '7d56806e675a892e5055ed43ba21dbbb__1667970492122.jpg', 1, NULL),
 (5, 'dipanla', 1, 'akaka@akak.com', '191919191', 6000, '123456', '$2b$10$FqtIKMkb5vYQ2LyEvATQvekXn9ueqxfES.SBZD3C9zJ1Ul4x5IKhe', '6bbd72744e99ef81f3462ac1533aa986__1667970589711.jpg', 1, NULL),
@@ -214,7 +214,7 @@ INSERT INTO `deposit` (`id`, `date_time`, `mode`, `doc`, `reference`, `remarks`,
 (7, '2022-11-26 15:20:25', 1, 'bc9e42c5e84f5d5b7cf947af2183a8a5__1669456225032.png', '1669456224', NULL, 0, 1000, 2, 1),
 (8, '2022-11-26 15:23:05', 2, '', '919199191', NULL, 0, 4500, 2, 1),
 (9, '2022-11-26 15:24:22', 2, '', '828282882', NULL, 0, 5000, 2, 1),
-(10, '2022-11-26 15:25:56', 2, '', '727727272', NULL, 0, 67000, 2, 1),
+(10, '2022-11-26 15:25:56', 2, '', '727727272', NULL, 1, 67000, 2, 1),
 (11, '2022-11-26 15:26:26', 1, '89b446eaaed5d2cf8010737706d4ae90__1669456586182.png', '1669456586', NULL, 1, 8999, 2, 1),
 (12, '2022-11-26 15:27:53', 1, '89b446eaaed5d2cf8010737706d4ae90__1669456673261.png', '1669456673', NULL, 2, 77, 2, 1),
 (13, '2022-11-26 15:47:51', 2, '', '98282882', NULL, 0, 45000, 1, 2),
@@ -321,6 +321,28 @@ INSERT INTO `employee_info` (`id`, `employee_id`, `designation_id`, `salary_id`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `holidays`
+--
+
+DROP TABLE IF EXISTS `holidays`;
+CREATE TABLE IF NOT EXISTS `holidays` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `h_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `holidays`
+--
+
+INSERT INTO `holidays` (`id`, `title`, `h_date`) VALUES
+(1, 'Festival Uppp', '2022-12-28'),
+(2, 'Test Festival Uuu', '2023-01-26');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `investment`
 --
 
@@ -402,11 +424,37 @@ INSERT INTO `kyc` (`id`, `adhar_no`, `pan_no`, `address`, `adhar_verified`, `pan
 -- --------------------------------------------------------
 
 --
--- Table structure for table `leave`
+-- Table structure for table `leave_application`
 --
 
-DROP TABLE IF EXISTS `leave`;
-CREATE TABLE IF NOT EXISTS `leave` (
+DROP TABLE IF EXISTS `leave_application`;
+CREATE TABLE IF NOT EXISTS `leave_application` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `from_date` date NOT NULL,
+  `to_date` date NOT NULL,
+  `total_days` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0-pending 1-accepted 2-rejected',
+  `application_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leave_application`
+--
+
+INSERT INTO `leave_application` (`id`, `employee_id`, `category`, `from_date`, `to_date`, `total_days`, `status`, `application_time`) VALUES
+(1, 2, 'sick', '2022-12-07', '2022-12-09', 3, 0, '2022-12-02 11:00:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave_category`
+--
+
+DROP TABLE IF EXISTS `leave_category`;
+CREATE TABLE IF NOT EXISTS `leave_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `annual` int(11) DEFAULT NULL,
   `casual` int(11) DEFAULT NULL,
@@ -415,7 +463,41 @@ CREATE TABLE IF NOT EXISTS `leave` (
   `bereavement` int(11) DEFAULT NULL,
   `others` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leave_category`
+--
+
+INSERT INTO `leave_category` (`id`, `annual`, `casual`, `sick`, `maternity`, `bereavement`, `others`) VALUES
+(1, 1, 1, 3, 1, 1, 1),
+(2, 2, 2, 2, 2, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leave_remain`
+--
+
+DROP TABLE IF EXISTS `leave_remain`;
+CREATE TABLE IF NOT EXISTS `leave_remain` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `annual` int(11) NOT NULL,
+  `casual` int(11) NOT NULL,
+  `sick` int(11) NOT NULL,
+  `maternity` int(11) NOT NULL,
+  `bereavement` int(11) NOT NULL,
+  `others` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leave_remain`
+--
+
+INSERT INTO `leave_remain` (`id`, `employee_id`, `annual`, `casual`, `sick`, `maternity`, `bereavement`, `others`) VALUES
+(1, 1, 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -596,7 +678,7 @@ CREATE TABLE IF NOT EXISTS `request` (
 
 INSERT INTO `request` (`id`, `name`, `subject`, `message`, `email`, `phone`, `remarks`, `request_type`, `status`) VALUES
 (1, 'Neque porro', 'quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,', 'test@test.com', '1234567890', 'aaaaaaaaa', 1, 1),
-(2, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'aaaaaaaaa', 2, 0),
+(2, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'kkkkkkkkkkkk', 2, 1),
 (3, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'This is Solved', 3, 1);
 
 -- --------------------------------------------------------

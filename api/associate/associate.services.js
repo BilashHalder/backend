@@ -37,7 +37,6 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    console.log(data)
     const {name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status,referral_key,id}=data;
     dbcon.query(updateQuery, [name,gender,email,commission_rate,employee_id,phone,balance,pass,image,status,referral_key,id], (err, result, fields) => {
         if(err)

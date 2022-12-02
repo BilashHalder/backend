@@ -4,19 +4,20 @@ const dbcon = require("../../config/dbconfig");
  * all database query
  ***********************************/
 
-let addquery='INSERT INTO request( name, subject, message, email,phone, request_type) VALUES (?,?,?,?,?,?)';
-let updateQuery='UPDATE request SET name=?,subject=?,message=?,email=?,phone=?,remarks=?,request_type=?,status=? WHERE id=?';
-let findQuery='SELECT * FROM request WHERE id=?';
-let findAllQuery='SELECT * FROM request';
-let deleteQuery='DELETE FROM request WHERE id=?';
 
+let addquery='INSERT INTO holidays(title,h_date) VALUES (?,?)';
+let updateQuery='UPDATE holidays SET title=?,h_date=? WHERE id=?';
+let findQuery='SELECT * FROM holidays WHERE id=?';
+let findAllQuery='SELECT * FROM holidays';
+let deleteQuery='DELETE FROM holidays WHERE id=?';
+let upcomingQuery='SELECT * FROM holidays WHERE h_date>=CURRENT_DATE';
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    const {name, subject, message, email,phone, request_type}=data;
-    dbcon.query(addquery, [name, subject, message, email,phone, request_type], (err, result, fields) => {
+    const {title,h_date}=data;
+    dbcon.query(addquery, [title,h_date], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -34,8 +35,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {name,subject,message,email,phone,remarks,request_type,status,id}=data;
-    dbcon.query(updateQuery, [name,subject,message,email,phone,remarks,request_type,status,id], (err, result, fields) => {
+    const {title,h_date,id}=data;
+    dbcon.query(updateQuery,[title,h_date,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
@@ -74,7 +75,12 @@ const remove = (id, callBack) => {
     });
 }
 
+const upcomingholidays = (data, callBack) => {
+    dbcon.query(upcomingQuery,[], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
 
-
-
-module.exports={add,update,find,findall,remove};
+module.exports={add,update,find,findall,remove,upcomingholidays};

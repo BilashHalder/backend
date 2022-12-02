@@ -21,9 +21,11 @@ const LoginRouter=require('./api/login/login.route');
 const DepositRouter=require('./api/deposit/deposit.route');
 const PayoutRouter=require('./api/payout/payout.route');
 const RequestRouter=require('./api/request/request.route');
-const LeaveRouter=require('./api/leave/leave.route');
 const WorkReportRouter=require('./api/report/report.route');
-const ApplyLeaveRouter=require('./api/leave _request/leave_request.route');
+const LeaveRouter=require('./api/leave/leave.route');
+const LeaveRemainRouter=require('./api/leave_remain/leave_remain_route');
+const LeaveApplication=require('./api/leave_application/leave_app.route');
+const HolidaysRouter=require('./api/holidays/holidays.router');
 
 
 
@@ -87,9 +89,11 @@ app.use("/api/login",LoginRouter);
 app.use("/api/deposit",DepositRouter);
 app.use("/api/payout",PayoutRouter);
 app.use("/api/others",RequestRouter);
-app.use("/api/leave",LeaveRouter);
 app.use("/api/report",WorkReportRouter);
-app.use("/api/apply_leave",ApplyLeaveRouter);
+app.use("/api/leave",LeaveRouter);
+app.use("/api/leave_remain",LeaveRemainRouter);
+app.use("/api/leave_application",LeaveApplication);
+app.use("/api/holidays",HolidaysRouter);
 
 
 
@@ -128,6 +132,6 @@ app.all("*", (request, response) => {
 
 /*Server Initilization */
 app.listen(9000,()=>{
-    console.log(`Api Server Running on Port No : 9000`);
+    console.log(`Api Server Running on Port No http://localhost:9000/api/`);
 });
 

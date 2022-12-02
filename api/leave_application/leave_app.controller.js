@@ -1,17 +1,17 @@
-const { add, update, find, findall, remove } = require("./leave_requset.services");
-const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
+const { add, update, find, findall, remove,findemployeeleaves } = require("./leave_app.services");
+const {servererror,invalidrequest,updatemessge,datanotfound}=require('../../locale/en');
 
+
+//employee_id,category,from_date,to_date,total_days,status
 const Add_ = (request, response) => {
-  let {annual,casual,sick,maternity,bereavement,others}=request.body;
-  if(annual==undefined||casual==undefined|| sick==undefined||maternity==undefined||bereavement==undefined||others==undefined)
+  let {employee_id,category,from_date,to_date,total_days,status}=request.body;
+
+  if(employee_id==undefined || category==undefined || from_date==undefined || to_date==undefined || total_days==undefined || status==undefined)
   response.status(404).json({ message: invalidrequest });
   else{
   add(request.body,(err,result)=>{
     if (err) 
-   {
-    console.log(err)
     response.status(500).json({ message: servererror });
-   }
     else
     response.status(200).json(result);
    });
@@ -19,7 +19,7 @@ const Add_ = (request, response) => {
 };
 
 
-////, ,,,,
+//
 
 const Update_ = (request, response) => {
   if (isNaN(request.params.id))
@@ -44,9 +44,6 @@ const Update_ = (request, response) => {
         if(newData.sick!=undefined && newData.sick!=oldData.sick)
         oldData={...oldData,sick:newData.sick};
 
-
-        if(newData.maternity!=undefined && newData.maternity!=oldData.maternity)
-        oldData={...oldData,maternity:newData.maternity};
 
         if(newData.bereavement!=undefined && newData.bereavement!=oldData.bereavement)
         oldData={...oldData,bereavement:newData.bereavement};
@@ -88,12 +85,23 @@ const Find_ = (request, response) => {
   }
 };
 
+const FindEmployee_ = (request, response) => {
+  let _id = request.params.id;
+  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
+  else {
+    findemployeeleaves(_id, (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: datanotfound });
+      else response.status(200).json(result);
+    });
+  }
+};
 
 
 
 
 const FindAll_ = (request, response) => {
-  console.log("aaaa")
   findall(null, (err, result) => {
     if (err) response.status(500).json({ message: servererror });
     else if (result.length == 0)
@@ -117,6 +125,4 @@ const Remove_ = (request, response) => {
     });
   }
 };
-
-
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ };
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,FindEmployee_};

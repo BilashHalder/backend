@@ -3,21 +3,21 @@ const dbcon = require("../../config/dbconfig");
 /***********************************
  * all database query
  ***********************************/
-//`id`,annual, casual,sick,maternity,bereavement,others
 
-let addquery='INSERT INTO leaves(annual,casual,sick,maternity,bereavement,others) VALUES (?,?,?,?,?,?)';
-let updateQuery='UPDATE leaves SET annual=?,casual=?,sick=?,maternity=?,bereavement=?,others=? WHERE id=?';
-let findQuery='SELECT * FROM leaves WHERE id=?';
-let findAllQuery='SELECT * FROM leaves';
-let deleteQuery='DELETE FROM leaves WHERE id=?';
+
+let addquery='INSERT INTO leave_category(annual,casual,sick,maternity,bereavement,others) VALUES (?,?,?,?,?,?)';
+let updateQuery='UPDATE leave_category SET annual=?,casual=?,sick=?,maternity=?,bereavement=?,others=? WHERE id=?';
+let findQuery='SELECT * FROM leave_category WHERE id=?';
+let findAllQuery='SELECT * FROM leave_category';
+let deleteQuery='DELETE FROM leave_category WHERE id=?';
 
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    const {annual, casual,sick,maternity,bereavement,others}=data;
-    dbcon.query(addquery, [annual, casual,sick,maternity,bereavement,others], (err, result, fields) => {
+    const {annual,casual,sick,maternity,bereavement,others}=data;
+    dbcon.query(addquery, [annual,casual,sick,maternity,bereavement,others], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -35,8 +35,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {annual, casual,sick,maternity,bereavement,others,id}=data;
-    dbcon.query(updateQuery,[annual, casual,sick,maternity,bereavement,others,id], (err, result, fields) => {
+    const {annual,casual,sick,maternity,bereavement,others,id}=data;
+    dbcon.query(updateQuery,[annual,casual,sick,maternity,bereavement,others,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);

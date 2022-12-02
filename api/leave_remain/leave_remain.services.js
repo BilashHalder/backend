@@ -4,19 +4,21 @@ const dbcon = require("../../config/dbconfig");
  * all database query
  ***********************************/
 
-let addquery='INSERT INTO request( name, subject, message, email,phone, request_type) VALUES (?,?,?,?,?,?)';
-let updateQuery='UPDATE request SET name=?,subject=?,message=?,email=?,phone=?,remarks=?,request_type=?,status=? WHERE id=?';
-let findQuery='SELECT * FROM request WHERE id=?';
-let findAllQuery='SELECT * FROM request';
-let deleteQuery='DELETE FROM request WHERE id=?';
+
+let addquery='INSERT INTO leave_remain(employee_id,annual,casual,sick,maternity,bereavement,others) VALUES (?,?,?,?,?,?,?)';
+let updateQuery='UPDATE leave_remain SET employee_id=?,annual=?,casual=?,sick=?,maternity=?,bereavement=?,others=? WHERE id=?';
+let findQuery='SELECT * FROM leave_remain WHERE id=?';
+let findAllQuery='SELECT * FROM leave_remain';
+let deleteQuery='DELETE FROM leave_remain WHERE id=?';
+let isExistQuery='SELECT * FROM leave_remain WHERE employee_id=?';
 
 
 // Add Data in the Database....
 
 
 const add = (data, callBack) => {
-    const {name, subject, message, email,phone, request_type}=data;
-    dbcon.query(addquery, [name, subject, message, email,phone, request_type], (err, result, fields) => {
+    const {employee_id,annual,casual,sick,maternity,bereavement,others}=data;
+    dbcon.query(addquery, [employee_id,annual,casual,sick,maternity,bereavement,others], (err, result, fields) => {
         if(err)
         return callBack(err);
         else{
@@ -34,8 +36,8 @@ const add = (data, callBack) => {
 // Update Data in the Database....
 
 const update = (data, callBack) => {
-    const {name,subject,message,email,phone,remarks,request_type,status,id}=data;
-    dbcon.query(updateQuery, [name,subject,message,email,phone,remarks,request_type,status,id], (err, result, fields) => {
+    const {employee_id,annual,casual,sick,maternity,bereavement,others,id}=data;
+    dbcon.query(updateQuery,[employee_id,annual,casual,sick,maternity,bereavement,others,id], (err, result, fields) => {
         if(err)
         return callBack(err);
         return callBack(null,result);
@@ -77,4 +79,14 @@ const remove = (id, callBack) => {
 
 
 
-module.exports={add,update,find,findall,remove};
+// Find Data from the Database based on employee id....
+
+const isexist = (id, callBack) => {
+    dbcon.query(isExistQuery, [id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result[0]);
+    });
+}
+
+module.exports={add,update,find,findall,remove,isexist};
