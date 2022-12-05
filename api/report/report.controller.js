@@ -174,5 +174,21 @@ const TodayReport_ = (request, response) => {
 };
 
 
+const FindEmpWorksReports_ = (request, response) => {
+  let { start_date,end_date,employee_id} = request.body;
+  if(employee_id==undefined || start_date==undefined || end_date==undefined)
+  response.status(400).json({ message: "Invalid Request" });
+  else{
+  findempreport(request.body,(err,result)=>{
+  if (err) 
+  {console.log(err);
+    response.status(500).json({ message: "Internal Server Error" });}
+  else
+  response.status(200).json(result);
+ });
+  }
+};
 
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_,FindEmp_,TodayReport_};
+
+
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_,FindEmp_,TodayReport_,FindEmpWorksReports_};

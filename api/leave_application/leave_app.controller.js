@@ -1,6 +1,8 @@
 const { add, update, find, findall, remove,findemployeeleaves } = require("./leave_app.services");
 const {servererror,invalidrequest,updatemessge,datanotfound}=require('../../locale/en');
 
+const dbcon = require("../../config/dbconfig");
+
 
 //employee_id,category,from_date,to_date,total_days,status
 const Add_ = (request, response) => {
@@ -125,4 +127,98 @@ const Remove_ = (request, response) => {
     });
   }
 };
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,FindEmployee_};
+
+const Accept_=(request, response)=>{
+  let _id = request.params.id;
+  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
+  else{
+    find(_id, (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (!result)
+        response.status(404).json({ message: datanotfound });
+      else {
+         let emp_id=result.employee_id;
+         let cat=result.category;
+         let tdays=result.total_days;
+         let qur1="SELECT * FROM leave_remain WHERE employee_id=?";
+         dbcon.query(qur1,[emp_id],(err, result, fields)=>{
+          if(err)
+          response.status(500).json({ message: servererror });
+          else {
+            let temp= result[0];
+            let qur='';
+            let td=0;
+            if(cat=='annual'){
+              td=parseInt(temp.annual)-parseInt(tdays);
+              qur="UPDATE leave_remain SET annual=? WHERE id=?"
+            }
+            else if(cat=='bereavement'){
+               td=parseInt(temp.bereavement)-parseInt(tdays);
+               qur="UPDATE leave_remain SET bereavement=? WHERE id=?"
+             }
+             else if(cat=='casual'){
+               td=parseInt(temp.casual)-parseInt(tdays);
+               qur="UPDATE leave_remain SET casual=? WHERE id=?"
+             }
+             else if(cat=='maternity'){
+               td=parseInt(temp.maternity)-parseInt(tdays);
+               qur="UPDATE leave_remain SET maternity=? WHERE id=?"
+             }
+             else if(cat=='others'){
+               td=parseInt(temp.others)-parseInt(tdays);
+               qur="UPDATE leave_remain SET others=? WHERE id=?"
+             }
+             else if(cat=='sick'){
+               td=parseInt(temp.sick)-parseInt(tdays);
+               qur="UPDATE leave_remain SET sick=? WHERE id=?"
+             }
+             else{
+              qur=null;
+             }
+
+
+             if(qur){
+              dbcon.query(qur,[td,temp.id],(err, result, fields)=>{
+                if(err)
+                response.status(500).json({ message: servererror });
+                else{
+                  dbcon.query("UPDATE `leave_application` SET status=1 WHERE id=?",[_id],(err, result, fields)=>{
+                    if(err)
+                    response.status(500).json({ message: servererror });
+                    else{
+                      response.status(200).json({ message: "Leave Application Accepted" });
+                    }
+                  })
+                }
+              })
+             }
+             else{
+              response.status(400).json({ message: invalidrequest });
+             }
+           
+          }
+         });
+      }
+    });
+  }
+}
+
+const Reject_=(request, response)=>{
+  let _id = request.params.id;
+  if (isNaN(_id)) response.status(400).json({ message: invalidrequest });
+  else{
+
+    dbcon.query("UPDATE `leave_application` SET status=2 WHERE id=?",[_id],(err, result, fields)=>{
+      if(err)
+      response.status(500).json({ message: servererror });
+      else{
+        response.status(200).json({ message: "Leave Application Rejected" });
+      }
+    })
+  }
+
+}
+
+
+
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,FindEmployee_,Accept_,Reject_};

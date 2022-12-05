@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 02, 2022 at 09:20 AM
+-- Generation Time: Dec 05, 2022 at 09:10 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -38,25 +38,27 @@ CREATE TABLE IF NOT EXISTS `account` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `account_no` (`account_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `account`
 --
 
 INSERT INTO `account` (`id`, `account_no`, `ifsc_code`, `bank`, `user_id`, `user_type`, `status`) VALUES
-(1, '181881818', 'UBIN0562319', 'UNION BANK OF INDIA ', 1, 2, 1),
-(2, '1919191', 'IFSC19199191', 'SBI', 1, 2, 1),
+(1, '181881818', 'UBIN0562319', 'UNION BANK OF INDIA ', 18, 2, 1),
+(2, '1919191', 'IFSC19199191', 'SBI', 19, 2, 1),
 (3, '989291101010', 'IDIB000J039', 'Indian Bank', 1, 2, 1),
 (4, '902029101171', 'BDBL0002002', 'Bandhan Bank', 1, 2, 1),
-(5, '234523452345', 'INDB0000587', 'Indusind Bank', 1, 1, 1),
-(6, '5454787890', 'SBIN0001612', 'State Bank of India', 1, 1, 1),
-(7, '1245543210', 'SBIN0001612', 'State Bank of India', 1, 1, 1),
+(5, '234523452345', 'INDB0000587', 'Indusind Bank', 19, 1, 1),
+(6, '5454787890', 'SBIN0001612', 'State Bank of India', 19, 1, 1),
+(7, '1245543210', 'SBIN0001612', 'State Bank of India', 19, 1, 1),
 (8, '87290109118', 'SBIN0030409', 'State Bank of India', 2, 1, 1),
-(9, '77277272772727', 'INDB0000587', 'Indusind Bank', 1, 1, 1),
+(9, '77277272772727', 'INDB0000587', 'Indusind Bank', 19, 1, 1),
 (10, '8373773992', 'SBIN0001612', 'State Bank of India', 1, 1, 1),
 (11, '11111111111111', 'SBIN0003029', 'State Bank of India', 1, 3, 1),
-(12, '6161661616161', 'SBIN0003029', 'State Bank of India', 12, 1, 1);
+(12, '6161661616161', 'SBIN0003029', 'State Bank of India', 12, 1, 1),
+(13, '555555666663', 'INDB0000587', 'Indusind Bank', 1, 1, 1),
+(14, '55555566688', 'INDB0000587', 'Indusind Bank', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -105,14 +107,16 @@ CREATE TABLE IF NOT EXISTS `associate` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   `referral_key` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `associate`
 --
 
 INSERT INTO `associate` (`id`, `name`, `gender`, `email`, `commission_rate`, `employee_id`, `phone`, `balance`, `pass`, `image`, `status`, `referral_key`) VALUES
-(1, 'Dummy iiiii', 1, 'dummy@gmail.com', 3, 3, '3939393939', 26000, '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', 'ajjjjjjjjjjjjjjjjjjj', 1, '123456');
+(1, 'Dummy iiiii', 1, 'dummy@gmail.com', 3, 3, '3939393939', 26000, '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', 'ajjjjjjjjjjjjjjjjjjj', 1, '123456'),
+(2, 'Test Associate', 1, 'test@testass.in', 3, 10, '9876543232', 0, '$2b$10$hmOaBkRlopYGIeHXT2XZWOdUOB6i8Rk3TwIB.cHfBUbrMC9Q5Q2rG', '80504cd9c822568b3069462ce78d6200__1670051334821.png', 1, '98292'),
+(3, 'This is', 1, 'isisiis@ahah.ccm', 3, 10, '9988665533', 0, '$2b$10$0FFz875bye9mgRI8ayh/z.i6QvPthLQfaf6s9lNN6pypiG/kqumEu', '401a6c445d0b7a4cf7783a84037d2cc3__1670148631790.png', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -159,17 +163,17 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   `referral_key` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `phone`, `balance`, `referred_by`, `pass`, `image`, `status`, `referral_key`) VALUES
-(1, 'Bilash', 1, 'emaiai@kaka.po', '919191991', 13500, 'Admin10101', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '8c8c0129d7bf873e5c0ce570eadc80e1__1669442982395.jpg', 1, '929292'),
-(2, 'Bilash Halder', 1, 'ibilashhalder@gmail.com', '87654331331', 73000, '123456', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '7d56806e675a892e5055ed43ba21dbbb__1667970228324.jpg', 1, NULL),
+(1, 'Bilash', 1, 'emaiai@kaka.po', '919191991', 0, 'Admin10101', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '8c8c0129d7bf873e5c0ce570eadc80e1__1669442982395.jpg', 1, '929292'),
+(2, 'Bilash Halder', 1, 'ibilashhalder@gmail.com', '87654331331', 6500, '123456', '$2b$10$sK9nPs4C4WIbvkSJ5ZTBIuEsVZGvZMwRwDxhvd3eYyR3kLj570U62', '7d56806e675a892e5055ed43ba21dbbb__1667970228324.jpg', 1, NULL),
 (3, 'Bilash Halder', 1, 'ibilashhalder@gmail.co', '8765433130', 6000, '123456', '$2b$10$2qb88J1qM7C3biaZIrCPsu2CXGCcewpcZQZdv1nmL48RMDKS0eoSi', '7d56806e675a892e5055ed43ba21dbbb__1667970445854.jpg', 1, NULL),
-(4, 'full_name', 1, 'nidobe3103@otodir.com', '1188181', 6000, '123456', '$2b$10$8u7KKNoo6.jTHKI7RfOD4.OCQFrgOtQzX3UZsJfIRFU.j4E2TG3cG', '7d56806e675a892e5055ed43ba21dbbb__1667970492122.jpg', 1, NULL),
+(4, 'full_name', 1, 'nidobe3103@otodir.com', '1188181', 0, '123456', '$2b$10$8u7KKNoo6.jTHKI7RfOD4.OCQFrgOtQzX3UZsJfIRFU.j4E2TG3cG', '7d56806e675a892e5055ed43ba21dbbb__1667970492122.jpg', 1, NULL),
 (5, 'dipanla', 1, 'akaka@akak.com', '191919191', 6000, '123456', '$2b$10$FqtIKMkb5vYQ2LyEvATQvekXn9ueqxfES.SBZD3C9zJ1Ul4x5IKhe', '6bbd72744e99ef81f3462ac1533aa986__1667970589711.jpg', 1, NULL),
 (6, 'Bilash', 1, 'a@a.com', '2828288282', 6000, 'ajajjajajaja', '$2b$10$XwmeEyLHA0HUJBSCR3xmoOX76T.hBH0Oo/cqwk4Ogrw3sBSk3qI5e', 'c6824a15d21d77b6a44a99191aae4481__1667970688449.png', 1, NULL),
 (7, 'Bilash Halder', 1, 'ibilash@gmail.com', '9609327424', 0, 'ADMIN', '$2b$10$x53CGtwHcR0awJmA0nCnausv6r.E/LaxPsvyPMx/nDGngw1/aqJ3y', '45defb6d0e24986465c85346b63b2143__1668444248943.png', 1, NULL),
@@ -177,7 +181,10 @@ INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `phone`, `balance`, `re
 (9, 'Dipankar Khan', 1, 'dip@khan.com', '9876543210', 0, 'CRZNCUS10', '$2b$10$6Gmgset34lZHNmhcu8o8zeCBsQhhhRJ1BBsAeuhixc4M8psPCiXeC', '0f04ba650595a3cab8f3dad2321caf46__1668444570065.png', 1, NULL),
 (10, 'Customer Roa', 1, 'aoaoa@hah.com', '9988443322', 0, 'ADMIN', '$2b$10$kHd8QmBZ4t6mK3dakTXOqO4ltZZIyLIVDIKna0CQ9eEz6ZK.Uzl32', '75b800ac736311c3f2b3360cdb24aa20__1668749025092.jpg', 1, NULL),
 (11, 'Sachin deshmukh', 3, 'sachin@gmail.com', '3459870982', 0, '123456', '$2b$10$/XvD53zr9QTXTjOAMzDUpumlfvNcoRXNrSfBnpu2qumTprZIUMs0K', 'dac21df98bc34f015ef84b80f863b234__1669274183374.png', 1, NULL),
-(12, 'Ankit Kumar singh', 1, 'ankit@gmail.com', '8584084870', 1000, '123456', '$2b$10$/lKuTM9YOaWoKnkPnJ.FSOQ/lqQdiPwTBuXhTwjehl1KBgOxCcsoq', '4b40af12db5eaf5ef29d9c414bde7fc0__1669792623700.png', 1, NULL);
+(12, 'Ankit Kumar singh', 1, 'ankit@gmail.com', '8584084870', 1000, '123456', '$2b$10$/lKuTM9YOaWoKnkPnJ.FSOQ/lqQdiPwTBuXhTwjehl1KBgOxCcsoq', '4b40af12db5eaf5ef29d9c414bde7fc0__1669792623700.png', 1, NULL),
+(13, 'test Cussusus', 1, 'gagagag@gaga.com', '8289292929', 0, '393929', '$2b$10$m.He1feF8MmuPr8N2h43keO0oopSlJcayZy6avK39ZM6xxtA3I/uW', '401a6c445d0b7a4cf7783a84037d2cc3__1670051409964.png', 1, NULL),
+(14, 'lalala alal', 2, 'alalal@ajaja.oaoa', '8282929281', 0, '282928', '$2b$10$AkkqObQW.M/rhtDXsegPX.X8/PTT0S5de6VK0SW8jV9G2xXJcq9f2', '60bb3fc7e00b523d8ddace38d193b814__1670051512601.png', 1, NULL),
+(15, 'kakakak akak', 1, 'akak@kakak.ccc', '8877009988', 0, 'ADMIN', '$2b$10$EGTSsUYc2Yl/UdUoAHg6Qeh4LaXGIriMTlwT202KVONWN.fsrdn0m', '40de779845ab0ad03c7f6892967ef9af__1670148723364.png', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -198,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `deposit` (
   `user_id` int(11) NOT NULL,
   `user_type` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `deposit`
@@ -208,17 +215,19 @@ INSERT INTO `deposit` (`id`, `date_time`, `mode`, `doc`, `reference`, `remarks`,
 (1, '2022-11-26 11:43:47', 1, '8c8c0129d7bf873e5c0ce570eadc80e1__1669443227623.jpg', '17717818818', NULL, 1, 4500, 1, 1),
 (2, '2022-11-26 11:44:25', 1, '8c8c0129d7bf873e5c0ce570eadc80e1__1669443265212.jpg', '177178188', 'This is remarks ok', 2, 4500, 1, 1),
 (3, '2022-11-26 11:49:58', 1, '', '17717800', 'aj jaj jaja', 2, 4500, 1, 1),
-(4, '2022-11-26 11:50:23', 2, '', 'pauuauau', NULL, 0, 4500, 1, 1),
-(5, '2022-11-26 14:57:51', 2, '', '1222', NULL, 0, 122, 1, 1),
-(6, '2022-11-26 15:18:27', 2, '', '1919199119191', NULL, 0, 2000, 2, 1),
-(7, '2022-11-26 15:20:25', 1, 'bc9e42c5e84f5d5b7cf947af2183a8a5__1669456225032.png', '1669456224', NULL, 0, 1000, 2, 1),
-(8, '2022-11-26 15:23:05', 2, '', '919199191', NULL, 0, 4500, 2, 1),
-(9, '2022-11-26 15:24:22', 2, '', '828282882', NULL, 0, 5000, 2, 1),
+(4, '2022-11-26 11:50:23', 2, '', 'pauuauau', NULL, 1, 4500, 1, 1),
+(5, '2022-11-26 14:57:51', 2, '', '1222', NULL, 1, 122, 1, 1),
+(6, '2022-11-26 15:18:27', 2, '', '1919199119191', NULL, 1, 2000, 2, 1),
+(7, '2022-11-26 15:20:25', 1, 'bc9e42c5e84f5d5b7cf947af2183a8a5__1669456225032.png', '1669456224', 'invalid ', 2, 1000, 2, 1),
+(8, '2022-11-26 15:23:05', 2, '', '919199191', NULL, 1, 4500, 2, 1),
+(9, '2022-11-26 15:24:22', 2, '', '828282882', 'nononnnn', 2, 5000, 2, 1),
 (10, '2022-11-26 15:25:56', 2, '', '727727272', NULL, 1, 67000, 2, 1),
 (11, '2022-11-26 15:26:26', 1, '89b446eaaed5d2cf8010737706d4ae90__1669456586182.png', '1669456586', NULL, 1, 8999, 2, 1),
 (12, '2022-11-26 15:27:53', 1, '89b446eaaed5d2cf8010737706d4ae90__1669456673261.png', '1669456673', NULL, 2, 77, 2, 1),
 (13, '2022-11-26 15:47:51', 2, '', '98282882', NULL, 0, 45000, 1, 2),
-(14, '2022-11-28 00:42:51', 2, '', '2828288282', NULL, 0, 4900, 1, 1);
+(14, '2022-11-28 00:42:51', 2, '', '2828288282', NULL, 0, 4900, 1, 1),
+(15, '2022-12-03 13:39:45', 3, '', '77777777777', NULL, 0, 1999, 1, 1),
+(16, '2022-12-03 14:19:15', 2, '', '9999999999', NULL, 0, 5000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -231,20 +240,23 @@ CREATE TABLE IF NOT EXISTS `designation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `designation`
 --
 
 INSERT INTO `designation` (`id`, `title`) VALUES
-(1, 'System Designer'),
+(1, 'oaoaoaoao'),
 (2, 'Web Developer'),
 (3, 'Web Developer'),
 (4, 'Software Designe'),
 (5, 'New Desgination'),
 (6, 'TEST DESIGN'),
-(7, 'Customer Executive');
+(7, 'Customer Executive'),
+(8, 'New Add'),
+(9, 'trssssss'),
+(10, 'kopappa');
 
 -- --------------------------------------------------------
 
@@ -264,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `image` varchar(100) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1-active 0-not active',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee`
@@ -288,7 +300,9 @@ INSERT INTO `employee` (`id`, `name`, `gender`, `email`, `phone`, `balance`, `pa
 (15, 'Bilas', 2, 'bia@haa.com', '2233449098', 0, '$2b$10$ZPpNJOxlcz5oc6fz8KApAOa1EMY1sS8qWuOUokrD89YnUGj1Ht3ru', 'b16e407218c05a5afcebeea41ecdbe1c__1668493515029.jpg', 1),
 (16, 'lorem ttt', 2, 'lorem@lorem.co', '3909218900', 0, '$2b$10$Y0/br5BpQkxNuNvDu2ls.eSwuiJb5x9xHAmBQ7WIx2AZT5pB1HwKW', '2c67f965c6047b1a760b2433859a8869__1668493715219.png', 1),
 (17, 'Sachin deshmukh', 1, 'sachin@gmail.com', '8899228800', 0, '$2b$10$psf9i0KXT2ze8RWK9Zm5xe5AfcfIHOI2qSrXSqcs2OJ8qL59ulfFu', 'b2515365e0fcc1fd7cc6f23a774913e2__1668748927989.jpg', 1),
-(18, 'ahahah ahhaha', 3, 'hahahah@ahahah.com', '7766225522', 0, '$2b$10$g9vBv.tpkSpWCmXQWXxeheIyeFZ2IsKN2E5pIUDsmx66t3eT27bPy', '42d41e6133b1ff5a44c537ea957a7ab9__1669872494619.jpg', 1);
+(18, 'ahahah ahhaha', 3, 'hahahah@ahahah.com', '7766225522', 0, '$2b$10$g9vBv.tpkSpWCmXQWXxeheIyeFZ2IsKN2E5pIUDsmx66t3eT27bPy', '42d41e6133b1ff5a44c537ea957a7ab9__1669872494619.jpg', 1),
+(19, 'akakka kakak', 2, 'kakaak@kakak.cc', '2272989898', 0, '$2b$10$YQlYpo8w/4Wa714lky5NjesC/3yE0UPaxwLZ/73JIBFDavIuYH97i', '401a6c445d0b7a4cf7783a84037d2cc3__1670051590388.png', 1),
+(20, 'woowowo owow', 1, 'oqoqoq@oaoa.cc', '9922002200', 0, '$2b$10$X1wcwiy6sZSLV.kO88XSi.xTzxtu5/pq2GBf3J8HUHeoZU7UHgfRq', '401a6c445d0b7a4cf7783a84037d2cc3__1670148830558.png', 1);
 
 -- --------------------------------------------------------
 
@@ -308,15 +322,17 @@ CREATE TABLE IF NOT EXISTS `employee_info` (
   `joining_date` date NOT NULL,
   `acceptance_file` varchar(100) DEFAULT NULL,
   `id_card` tinyint(1) DEFAULT NULL,
+  `last_payment` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee_info`
 --
 
-INSERT INTO `employee_info` (`id`, `employee_id`, `designation_id`, `salary_id`, `leave_id`, `dob`, `report_to`, `joining_date`, `acceptance_file`, `id_card`) VALUES
-(1, 1, 1, 1, 1, '2012-11-05', 3, '2022-11-02', NULL, NULL);
+INSERT INTO `employee_info` (`id`, `employee_id`, `designation_id`, `salary_id`, `leave_id`, `dob`, `report_to`, `joining_date`, `acceptance_file`, `id_card`, `last_payment`) VALUES
+(1, 1, 1, 1, 1, '2012-11-05', 3, '2022-11-02', NULL, NULL, '2022-11-01'),
+(2, 2, 1, 1, 1, '1996-06-15', 1, '2022-11-01', NULL, NULL, '2022-12-01');
 
 -- --------------------------------------------------------
 
@@ -330,15 +346,17 @@ CREATE TABLE IF NOT EXISTS `holidays` (
   `title` varchar(100) NOT NULL,
   `h_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `holidays`
 --
 
 INSERT INTO `holidays` (`id`, `title`, `h_date`) VALUES
-(1, 'Festival Uppp', '2022-12-28'),
-(2, 'Test Festival Uuu', '2023-01-26');
+(1, 'Festival Up', '2022-12-27'),
+(2, 'Test Festival Uuu', '2023-01-26'),
+(3, 'kkkkkkkkkk mkkkk', '2023-01-04'),
+(4, 'Test Nominee', '2022-12-23');
 
 -- --------------------------------------------------------
 
@@ -361,33 +379,21 @@ CREATE TABLE IF NOT EXISTS `investment` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-pending 1-Active 2-withdraw 3-close',
   `withdrw_req_time` datetime DEFAULT NULL,
   `is_send` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0-Not send 1-send',
+  `last_payment` date DEFAULT NULL,
   `referral_id` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `investment`
 --
 
-INSERT INTO `investment` (`id`, `user_id`, `user_type`, `ammount`, `date_time`, `roi`, `nominee_id`, `account_no`, `payment_id`, `agreement_file`, `status`, `withdrw_req_time`, `is_send`, `referral_id`) VALUES
-(1, 1, 1, 4000, '2022-11-11 10:54:35', 3, 1, '772727272772', '17', 'aaa.pdf', 2, '2022-11-07 12:47:29', 1, NULL),
-(2, 1, 2, 4000, '2022-11-11 10:55:58', 5, 5, '989291101010', '18', '252bdf79f005e28bdb0f354a9dc2884a__1669797108117.pdf', 1, NULL, 0, NULL),
-(3, 1, 2, 10000, '2022-11-11 10:56:21', 3, 5, '989291101010', '19', '252bdf79f005e28bdb0f354a9dc2884a__1669797571577.pdf', 2, NULL, 0, NULL),
-(4, 1, 2, 8000, '2022-11-11 11:00:45', 3, 1, '772727272772', '20', NULL, 3, NULL, 0, NULL),
-(5, 1, 2, 1000, '2022-11-11 11:01:43', 3, 1, '772727272772', '21', NULL, 1, NULL, 1, NULL),
-(6, 1, 2, 1000, '2022-11-11 11:44:12', 3, 1, '772727272772', '22', NULL, 1, NULL, 1, NULL),
-(7, 1, 1, 1000, '2022-11-15 10:30:40', 3, 2, '181881818', '23', NULL, 1, NULL, 1, NULL),
-(8, 1, 1, 1000, '2022-11-15 10:33:17', 3, 2, '181881818', '24', NULL, 3, NULL, 1, NULL),
-(9, 1, 1, 9000, '2022-11-25 12:04:12', 3, 7, '234523452345', '25', 'e168795db05ae628500515b4c3275797__1669878504285.pdf', 1, NULL, 0, NULL),
-(10, 1, 1, 9000, '2022-11-25 12:16:05', 3, 7, '1245543210', '26', NULL, 1, NULL, 1, NULL),
-(11, 1, 1, 80000, '2022-11-25 12:16:30', 3, 3, '5454787890', '27', NULL, 1, NULL, 0, NULL),
-(12, 1, 1, 10000, '2022-11-25 12:17:13', 3, 7, '1245543210', '28', NULL, 1, NULL, 1, NULL),
-(13, 1, 1, 5000, '2022-11-25 12:20:48', 3, 7, '234523452345', '29', NULL, 1, NULL, 1, NULL),
-(14, 1, 1, 4899, '2022-11-25 12:26:04', 3, 7, '5454787890', '30', NULL, 1, NULL, 1, NULL),
-(15, 1, 1, 8000, '2022-11-28 01:23:43', 3, 7, '5454787890', '31', NULL, 1, NULL, 1, NULL),
-(16, 1, 1, 1000, '2022-11-28 01:24:15', 3, 7, '1245543210', '32', NULL, 1, NULL, 1, NULL),
-(17, 1, 1, 1000, '2022-11-28 14:50:15', 3, 9, '5454787890', '33', NULL, 1, NULL, 0, NULL),
-(18, 1, 1, 1000, '2022-11-30 12:40:11', 3, 7, '5454787890', '34', NULL, 1, NULL, 1, NULL);
+INSERT INTO `investment` (`id`, `user_id`, `user_type`, `ammount`, `date_time`, `roi`, `nominee_id`, `account_no`, `payment_id`, `agreement_file`, `status`, `withdrw_req_time`, `is_send`, `last_payment`, `referral_id`) VALUES
+(1, 1, 1, 4000, '2022-11-11 10:54:35', 3, 1, '772727272772', '17', 'aaa.pdf', 1, '2022-11-07 12:47:29', 1, '2022-12-04', '123456'),
+(2, 1, 2, 4000, '2022-11-11 10:55:58', 5, 5, '989291101010', '18', '252bdf79f005e28bdb0f354a9dc2884a__1669797108117.pdf', 1, NULL, 0, '2022-11-08', '123456'),
+(3, 1, 2, 10000, '2022-11-11 10:56:21', 3, 5, '989291101010', '19', '252bdf79f005e28bdb0f354a9dc2884a__1669797571577.pdf', 2, NULL, 0, '2022-09-12', '123456'),
+(4, 1, 2, 8000, '2022-11-11 11:00:45', 3, 1, '772727272772', '20', NULL, 3, NULL, 0, '2022-12-04', NULL),
+(5, 1, 2, 1000, '2022-11-11 11:01:43', 3, 1, '772727272772', '21', NULL, 1, NULL, 1, '2022-11-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -418,7 +424,7 @@ INSERT INTO `kyc` (`id`, `adhar_no`, `pan_no`, `address`, `adhar_verified`, `pan
 (3, '4373 2682 6937', 'AIFPH1669F', 'Kolkata', 1, 1, 1, 2),
 (4, '4373 2682 6937', 'AIFPH1669F', 'Kolkata', 1, 1, 6, 1),
 (5, '367598346013', 'AIFPH1669F', 'Kolkata New Address Kolkata Nio Pla', 1, 1, 10, 1),
-(7, '347698761230', 'AIFPH1669F', 'Arshdeep Singh to Latham, 3 runs, low full toss on the pads', 1, 1, 1, 1),
+(7, '347698761230', 'AIFPH1669F', 'Arshdeep Singh to Latham, 3 runs, low full toss on the pads', 1, 1, 19, 1),
 (8, '454587980987', 'AIFPH1669F', 'View Photo EXIF Metadata on iPhone, Android, Mac, and Windows', 1, 1, 1, 3);
 
 -- --------------------------------------------------------
@@ -438,14 +444,14 @@ CREATE TABLE IF NOT EXISTS `leave_application` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '0-pending 1-accepted 2-rejected',
   `application_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `leave_application`
 --
 
 INSERT INTO `leave_application` (`id`, `employee_id`, `category`, `from_date`, `to_date`, `total_days`, `status`, `application_time`) VALUES
-(1, 2, 'sick', '2022-12-07', '2022-12-09', 3, 0, '2022-12-02 11:00:38');
+(3, 1, 'annual', '2022-12-07', '2022-12-09', 3, 0, '2022-12-03 12:20:22');
 
 -- --------------------------------------------------------
 
@@ -463,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `leave_category` (
   `bereavement` int(11) DEFAULT NULL,
   `others` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `leave_category`
@@ -471,7 +477,8 @@ CREATE TABLE IF NOT EXISTS `leave_category` (
 
 INSERT INTO `leave_category` (`id`, `annual`, `casual`, `sick`, `maternity`, `bereavement`, `others`) VALUES
 (1, 1, 1, 3, 1, 1, 1),
-(2, 2, 2, 2, 2, 2, 2);
+(2, 2, 2, 2, 2, 2, 2),
+(3, 12, 12, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -497,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `leave_remain` (
 --
 
 INSERT INTO `leave_remain` (`id`, `employee_id`, `annual`, `casual`, `sick`, `maternity`, `bereavement`, `others`) VALUES
-(1, 1, 2, 1, 1, 1, 1, 1);
+(1, 1, 4, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -514,7 +521,7 @@ CREATE TABLE IF NOT EXISTS `nominee` (
   `user_type` int(11) NOT NULL COMMENT '1-customer 2-associate',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `nominee`
@@ -527,12 +534,14 @@ INSERT INTO `nominee` (`id`, `name`, `dob`, `user_id`, `user_type`, `status`) VA
 (4, 'Bilash New', '2022-11-08', 1, 2, 1),
 (5, 'Test Nominee', '1993-11-09', 1, 2, 1),
 (6, 'Test User', '2000-12-22', 1, 2, 1),
-(7, 'New Nominee', '2016-02-02', 1, 1, 1),
+(7, 'New Nominee', '2016-02-02', 19, 1, 1),
 (8, 'Puspa Raj', '2022-11-10', 4, 1, 1),
-(9, 'Rahul Dev', '1994-11-29', 1, 1, 1),
+(9, 'Rahul Dev', '1994-11-29', 19, 1, 1),
 (10, 'Test Nominee', '2022-05-19', 2, 1, 1),
-(11, 'Test Nominee', '1997-11-22', 1, 1, 1),
-(12, 'Puspa Raj', '2020-01-13', 12, 1, 1);
+(11, 'Test Nominee', '1997-11-22', 19, 1, 1),
+(12, 'Puspa Raj', '2020-01-13', 12, 1, 1),
+(13, 'Test Nominee', '2022-06-20', 1, 1, 1),
+(14, 'kjhkjh jkjkkj', '2022-08-24', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -552,7 +561,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `from_account` varchar(40) DEFAULT NULL,
   `remarks` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `payment`
@@ -592,7 +601,9 @@ INSERT INTO `payment` (`id`, `transaction_time`, `payment_mode`, `transaction_id
 (31, '2022-11-28 01:23:43', '3', 'invesment', 8000, 1, 'creazione', '1_1', 'invesment'),
 (32, '2022-11-28 01:24:15', '3', 'invesment', 1000, 1, 'creazione', '1_1', 'invesment'),
 (33, '2022-11-28 14:50:15', '3', 'invesment', 1000, 1, 'creazione', '1_1', 'invesment'),
-(34, '2022-11-30 12:40:11', '3', 'invesment', 1000, 1, 'creazione', '1_1', 'invesment');
+(34, '2022-11-30 12:40:11', '3', 'invesment', 1000, 1, 'creazione', '1_1', 'invesment'),
+(35, '2022-12-03 13:34:59', '3', 'invesment', 1000, 1, 'creazione', '1_1', 'invesment'),
+(36, '2022-12-03 14:13:54', '3', 'invesment', 1000, 1, 'creazione', '1_1', 'invesment');
 
 -- --------------------------------------------------------
 
@@ -620,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `payout` (
 --
 
 INSERT INTO `payout` (`id`, `invesment_id`, `account_no`, `ifsc_code`, `amount`, `date_time`, `user_id`, `user_type`, `transaction_id`, `status`) VALUES
-(1, 1, '292999292', 'ppwpwppwpw', 3000, '2022-11-28 14:37:49', 1, 1, '788888yy888uu8', 1);
+(1, 2, '292999292', 'ppwpwppwpw', 3000, '2022-11-28 14:37:49', 1, 1, '788888yy888uu8', 1);
 
 -- --------------------------------------------------------
 
@@ -677,8 +688,8 @@ CREATE TABLE IF NOT EXISTS `request` (
 --
 
 INSERT INTO `request` (`id`, `name`, `subject`, `message`, `email`, `phone`, `remarks`, `request_type`, `status`) VALUES
-(1, 'Neque porro', 'quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,', 'test@test.com', '1234567890', 'aaaaaaaaa', 1, 1),
-(2, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'kkkkkkkkkkkk', 2, 1),
+(1, 'Neque porro', 'quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,', 'test@test.com', '1234567890', 'solvw', 1, 1),
+(2, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'okkak akka ka akak aka akka ', 2, 1),
 (3, 'RRR MMAMA', 'Why do we use it?', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty', 'test@test.com', '3939393939', 'This is Solved', 3, 1);
 
 -- --------------------------------------------------------
@@ -699,14 +710,44 @@ CREATE TABLE IF NOT EXISTS `salary` (
   `insurance` float NOT NULL DEFAULT '0',
   `tax` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `salary`
 --
 
 INSERT INTO `salary` (`id`, `basic`, `hra`, `conveyance`, `medical`, `special`, `pf`, `insurance`, `tax`) VALUES
-(28, 1000, 1000, 1000, 1000, 1000, 1000, 100, 100);
+(1, 1000, 1000, 100, 1000, 1000, 100, 200, 100),
+(29, 2000, 220, 2000, 2020, 200, 2020, 100, 10),
+(30, 550, 550, 550, 550, 550, 50, 50, 50),
+(31, 12000, 12, 12, 120000, 12, 1200, 87, 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdrawal_request`
+--
+
+DROP TABLE IF EXISTS `withdrawal_request`;
+CREATE TABLE IF NOT EXISTS `withdrawal_request` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `amount` float NOT NULL,
+  `account` varchar(50) NOT NULL,
+  `ifsc_code` varchar(50) NOT NULL,
+  `reference_id` varchar(100) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `request_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `withdrawal_request`
+--
+
+INSERT INTO `withdrawal_request` (`id`, `user_type`, `user_id`, `amount`, `account`, `ifsc_code`, `reference_id`, `status`, `request_time`) VALUES
+(1, 1, 1, 4000, '565656565', '777777777', NULL, 0, '2022-12-04 16:27:57');
 
 -- --------------------------------------------------------
 
@@ -718,7 +759,7 @@ DROP TABLE IF EXISTS `work_report`;
 CREATE TABLE IF NOT EXISTS `work_report` (
   `report_id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) NOT NULL,
-  `report_date` varchar(50) DEFAULT NULL,
+  `report_date` date DEFAULT NULL,
   `start_time` varchar(50) DEFAULT NULL,
   `report_to` int(11) DEFAULT NULL,
   `submit_time` time DEFAULT NULL,
@@ -729,16 +770,15 @@ CREATE TABLE IF NOT EXISTS `work_report` (
   `reject_for` varchar(200) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '2' COMMENT '1-accept 0-reject 2-pending 3-submitted',
   PRIMARY KEY (`report_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `work_report`
 --
 
 INSERT INTO `work_report` (`report_id`, `employee_id`, `report_date`, `start_time`, `report_to`, `submit_time`, `report`, `document_url`, `login_location`, `logout_location`, `reject_for`, `status`) VALUES
-(1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(2, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(3, 1, '2022-12-01', '14:39:50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
+(4, 1, '2022-12-01', '10:28:34', 1, '13:45:16', 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the le', NULL, '22.5757_88.4327', '23.1746_88.5690', NULL, 1),
+(5, 1, '2022-12-02', '13:55:41', NULL, '16:14:58', NULL, NULL, '22.5804288_88.3621888', NULL, NULL, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

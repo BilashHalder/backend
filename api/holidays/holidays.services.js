@@ -11,6 +11,7 @@ let findQuery='SELECT * FROM holidays WHERE id=?';
 let findAllQuery='SELECT * FROM holidays';
 let deleteQuery='DELETE FROM holidays WHERE id=?';
 let upcomingQuery='SELECT * FROM holidays WHERE h_date>=CURRENT_DATE';
+let holidaysinrange='SELECT * FROM holidays WHERE h_date>=? AND h_date<=?';
 
 // Add Data in the Database....
 
@@ -54,6 +55,20 @@ const find = (id, callBack) => {
     });
 }
 
+//Holidays in range
+
+const findholidaysinrange = (data, callBack) => {
+    const {start_date,end_date}=data;
+    dbcon.query(holidaysinrange, [start_date,end_date], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        return callBack(null,result);
+    });
+}
+
+
+
+
 
 // find all from the Database....
 
@@ -83,4 +98,4 @@ const upcomingholidays = (data, callBack) => {
     });
 }
 
-module.exports={add,update,find,findall,remove,upcomingholidays};
+module.exports={add,update,find,findall,remove,upcomingholidays,findholidaysinrange};

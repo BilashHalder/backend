@@ -1,4 +1,4 @@
-const { add,update,find,findall,remove,upcomingholidays } = require("./holidays.services");
+const { add,update,find,findall,remove,upcomingholidays,findholidaysinrange } = require("./holidays.services");
 
 
 
@@ -73,6 +73,23 @@ const Find_ = (request, response) => {
 
 
 
+const FindHolidaysInRange_ = (request, response) => {
+ const {start_date,end_date}=request.body;
+  if (start_date==undefined || end_date==undefined) 
+  response.status(400).json({ message: "Invalid Request" });
+  else {
+    findholidaysinrange(request.body, (err, result) => {
+      if (err) 
+    {
+      response.status(500).json({ message: "Internal Server Error" });
+    }
+      else if (!result)
+        response.status(404).json({ message: "No data found" });
+      else response.status(200).json(result);
+    });
+  }
+};
+
 
 
 const FindAll_ = (request, response) => {
@@ -112,4 +129,4 @@ const upcomingHolidays_ = (request, response) => {
 };
 
 
-module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,upcomingHolidays_};
+module.exports = { Find_, FindAll_, Add_, Update_, Remove_ ,upcomingHolidays_,FindHolidaysInRange_};

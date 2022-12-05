@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const {Find_,FindAll_,Add_,Update_,Remove_,TodayReport_}=require('./report.controller');
+const {Find_,FindAll_,Add_,Update_,Remove_,TodayReport_,FindEmpWorksReports_}=require('./report.controller');
 const {verifyToken}=require('../../auth/tockenValidator');
 
 
@@ -10,6 +10,7 @@ router.post("/",verifyToken,Add_);
 router.put("/:id",verifyToken,Update_);
 router.delete("/:id",verifyToken,Remove_);
 router.get("/employee/:id",verifyToken,TodayReport_);
+router.post("/employee",verifyToken,FindEmpWorksReports_);
 
 
 
