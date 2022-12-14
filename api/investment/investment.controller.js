@@ -75,7 +75,7 @@ else{
                  {
                    
                    let invobj={
-                     user_id,user_type,ammount,roi,nominee_id,account_no,payment_id:pay.insertId,agreement_file:null,status:1,withdrw_req_time:null,is_send
+                     user_id,user_type,ammount,roi,nominee_id,account_no,payment_id:pay.insertId,agreement_file:null,status:0,withdrw_req_time:null,is_send
                    }
                    add(invobj, (err, result) => {
                      if (err)
