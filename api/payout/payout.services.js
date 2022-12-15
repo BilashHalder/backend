@@ -11,6 +11,8 @@ let salaryquery="SELECT employee_info.last_payment, employee_info.joining_date,e
 let associatequery='SELECT SUM(investment.ammount) AS total FROM investment WHERE investment.referral_id=123456 AND status=1';
 let payoutsquery='SELECT * FROM payout WHERE invesment_id=?';
 
+let userwithdrwalquery='SELECT * FROM withdrawal_request WHERE user_type=? AND user_id=?';
+
 
 const invesment=(data, callBack)=>{
     dbcon.query(invesmentquery, [], (err, result, fields) => {
@@ -61,5 +63,13 @@ const payouts=(data, callBack)=>{
     });
 }
 
-
-module.exports={invesment,salary,withdrawal,associate,payouts};
+const userwithdrwals=(data, callBack)=>{
+    const {user_id,user_type}=data;
+    dbcon.query(userwithdrwalquery, [user_type,user_id], (err, result, fields) => {
+        if(err)
+        return callBack(err);
+        else
+         return callBack(null,result);
+    });
+}
+module.exports={invesment,salary,withdrawal,associate,payouts,userwithdrwals};

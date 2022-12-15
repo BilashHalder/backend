@@ -1,7 +1,7 @@
 const router=require("express").Router();
 const {verifyToken}=require('../../auth/tockenValidator');
 
-const {FindAllInvesments_,FindAllSalary_,FindAllWithdrawal_,FindInvesmentPayouts_ }=require('./payout.controller');
+const {FindAllInvesments_,FindAllSalary_,FindAllWithdrawal_,FindInvesmentPayouts_,FindUserWithdrwals_ }=require('./payout.controller');
 
 
 
@@ -9,6 +9,7 @@ const {FindAllInvesments_,FindAllSalary_,FindAllWithdrawal_,FindInvesmentPayouts
 router.get("/invesments",verifyToken,FindAllInvesments_);
 router.get("/salary",verifyToken,FindAllSalary_);
 router.get("/withdrawals",verifyToken,FindAllWithdrawal_);
+router.post("/withdrawals/user",verifyToken,FindAllWithdrawal_);
 router.get("/invesment/:id",verifyToken,FindInvesmentPayouts_);
 
 

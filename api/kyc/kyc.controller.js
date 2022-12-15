@@ -2,7 +2,6 @@ const { add, update, find, findall, remove ,findKyc} = require("./kyc.services")
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
 const Add_ = (request, response) => {
-
   let {adhar_no,pan_no,address,user_id,user_type}=request.body;
 
   if(!(adhar_no)||!(pan_no)||!(address)||!(user_id)||!(user_type))

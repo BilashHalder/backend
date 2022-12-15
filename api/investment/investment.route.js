@@ -9,6 +9,7 @@ router.put("/:id",verifyToken,Update_);
 router.delete("/:id",verifyToken,Remove_);
 router.post("/user",verifyToken,User_);
 
+
  /*To handle all invalid request */  
  router.all("*",(request,response)=>{
         response.status(500).json({ status:"failed", message:"invalid request" }); 

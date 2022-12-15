@@ -1,4 +1,4 @@
-const { invesment,salary,withdrawal,payouts} = require("./payout.services");
+const { invesment,salary,withdrawal,payouts,userwithdrwals} = require("./payout.services");
 const {servererror,invalidrequest,updatemessge,datanotfound,deletemsg,imageerror,alreadyused,passerror,invaliddata,invalid}=require('../../locale/en');
 
 
@@ -40,4 +40,24 @@ const FindInvesmentPayouts_ = (request, response) => {
 };
 
 
-module.exports = { FindAllInvesments_,FindAllSalary_,FindAllWithdrawal_,FindInvesmentPayouts_ };
+const FindUserWithdrwals_=(request, response) => {
+  let {user_id,user_type}=request.body;
+  console.log(request.body)
+  if(!user_id || !user_type)
+  response.status(400).json({message:"Invalid Data"});
+  else{
+    userwithdrwals([request.body], (err, result) => {
+      if (err) response.status(500).json({ message: servererror });
+      else if (result.length == 0)
+        response.status(404).json({ message: datanotfound});
+    else{ response.status(200).json(result);}
+    });
+  }
+
+};
+
+
+
+
+
+module.exports = { FindAllInvesments_,FindAllSalary_,FindAllWithdrawal_,FindInvesmentPayouts_,FindUserWithdrwals_ };
